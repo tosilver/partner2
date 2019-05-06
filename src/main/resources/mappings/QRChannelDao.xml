@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.b4pay.admin.dao.QRChannelDao">
+    <sql id="Base_Column_List">
+        a.id,
+        a.merchant_id AS "merchantId",
+        a.name AS "Name",
+        a.status,
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime",
+        a.last_request_time AS "lastRequestTime",
+        a.turnover,
+        a.recharge_amount AS "rechargeAmount",
+        a.frozen_capital_pool AS "frozenCapitalPool",
+        a.rate
+    </sql>
+
+    <sql id="Base_Where_Clause">
+        <where>
+            AND 1=1
+            <choose>
+                <when test="status != null and status!=''">
+                    AND a.status = #{status}
+                </when>
+                <otherwise>
+                    AND a.status &gt;= 0
+                </otherwise>
+            </choose>
+            <if test="merchantId != null and merchantId!=''">
+                AND a.merchant_id = #{merchantId}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.update_time &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.update_time &lt;= #{endDate}
+            </if>
+            <if test="currentYear != null">
+                AND YEAR (a.update_time) = #{currentYear}
+            </if>
+            <if test="currentMonth != null">
+                AND MONTH (a.update_time) = #{currentMonth}
+            </if>
+            <if test="currentDay != null">
+                AND DAY (a.update_time) = #{currentDay}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="count" resultType="int">
+        SELECT count(1) FROM dst_qr_channel a
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+
+    <select id="get" resultType="co.b4pay.admin.entity.QRChannel">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_qr_channel a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="co.b4pay.admin.entity.QRChannel">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_qr_channel a
+        <include refid="Base_Where_Clause"/>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY a.${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+        <if test="pageSize &gt; 0">
+            LIMIT ${pageFirst}, ${pageSize}
+        </if>
+    </select>
+
+
+    <select id="findListCount" resultType="co.b4pay.admin.entity.QRChannel">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_qr_channel a
+        <include refid="Base_Where_Clause"/>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY a.${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByTop4" resultType="co.b4pay.admin.entity.QRChannel">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_qr_channel a
+        <include refid="Base_Where_Clause"/>
+        ORDER BY a.turnover DESC
+        LIMIT 4
+    </select>
+
+    <select id="findByDerived" resultType="co.b4pay.admin.entity.QRChannel">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_qr_channel a
+        <include refid="Base_Where_Clause"/>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY a.${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+        <selectKey resultType="string" keyProperty="id" order="AFTER">
+            select @@IDENTITY as id
+        </selectKey>
+        insert into dst_qr_channel(merchant_id,`name`,status,create_time,update_time,last_request_time,turnover,recharge_amount,frozen_capital_pool,rate)
+        values(#{merchantId}, #{Name},#{status}, now(), now(),now(),#{turnover},#{rechargeAmount},#{frozenCapitalPool},#{rate})
+    </insert>
+
+    <update id="update">
+        UPDATE dst_qr_channel SET
+        <if test="merchantId != null">
+            merchant_id = #{merchantId},
+        </if>
+        <if test="Name != null">
+            `name` = #{Name},
+        </if>
+        <if test="turnover != null">
+            turnover = #{turnover},
+        </if>
+        <if test="rechargeAmount != null">
+            recharge_amount = #{rechargeAmount},
+        </if>
+        <if test="frozenCapitalPool != null">
+            frozen_capital_pool = #{frozenCapitalPool},
+        </if>
+        <if test="rate != null">
+            rate = #{rate},
+        </if>
+        update_time = now()
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE dst_qr_channel
+        SET status = #{status},
+        update_time=#{nowDate}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateRechargeAmount">
+        UPDATE dst_qr_channel
+        SET recharge_amount = #{rechargeAmount},
+        update_time=#{nowDate}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateFrozenCapitalPool">
+        UPDATE dst_qr_channel
+        SET frozen_capital_pool = #{frozenCapitalPool},
+        update_time=#{nowDate}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateRate">
+        UPDATE dst_qr_channel
+        SET rate = #{rate},
+        update_time=#{nowDate}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findByMallName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM dst_qr_channel a
+        WHERE a.mall_name = #{mallName}
+    </select>
+
+    <select id="findByStatus" resultType="co.b4pay.admin.entity.QRChannel">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_qr_channel a
+        WHERE a.status = #{status}
+    </select>
+
+    <select id="findByMerchantId" resultType="co.b4pay.admin.entity.QRChannel">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_qr_channel a
+        WHERE a.merchant_id = #{merchantId}
+    </select>
+
+</mapper>
