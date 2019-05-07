@@ -82,6 +82,19 @@
                                         <div class="form-control" id="name"><shiro:principal/> </div>
                                     </div>
                                 </div>
+                                <div class="form-group transparent-editor">
+                                    <label class="col-sm-4 control-label">手机号</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-control" > ${tel}</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group transparent-editor">
+                                    <label class="col-sm-4 control-label">联系人</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-control" >${user} </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <!-- /tile body -->

@@ -9,6 +9,7 @@ import co.b4pay.admin.common.util.StringUtil;
 import co.b4pay.admin.common.web.BaseController;
 import co.b4pay.admin.common.web.PageAttribute;
 import co.b4pay.admin.entity.Merchant;
+import co.b4pay.admin.entity.QRChannel;
 import co.b4pay.admin.entity.base.AjaxResponse;
 import co.b4pay.admin.entity.base.Page;
 import co.b4pay.admin.entity.base.Params;
@@ -16,6 +17,7 @@ import co.b4pay.admin.entity.enums.AccountType;
 import co.b4pay.admin.entity.enums.SettleType;
 import co.b4pay.admin.service.MerchantRateService;
 import co.b4pay.admin.service.MerchantService;
+import co.b4pay.admin.service.QRChannelService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -50,6 +52,8 @@ public class MerchantController extends BaseController {
     @Autowired
     private MerchantService merchantService;
     @Autowired
+    private QRChannelService qrChannelService;
+    @Autowired
     private MerchantRateService merchantRateService;
     @Autowired
     private AdminService adminService;
@@ -57,9 +61,22 @@ public class MerchantController extends BaseController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model, @PageAttribute Page<Merchant> page) {
         String roleIds = LoginHelper.getRoleIds();
+
+        String merid = LoginHelper.getMerchantIds();
+        //System.out.println("merid是："+merid);
+        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
+        model.addAttribute("amount",qrChannel.getRechargeAmount());
+        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
+
+
+
         if (!(roleIds.contains("1"))) {      //说明不是超级管理员角色
             String merchantIds = LoginHelper.getMerchantIds();
+
             if (StringUtil.isNoneBlank(merchantIds)) {
+                Merchant mer= merchantService.get(merchantIds);
                 Params params = page.getParams();
                 if (null == params) {
                     params = Params.create("merchantIds", merchantIds.split(","));
@@ -68,13 +85,15 @@ public class MerchantController extends BaseController {
                 }
                 page.setParams(params);
                 model.addAttribute("page", merchantService.findPage(page));
-                model.addAttribute("merchantIds", merchantIds);
+                model.addAttribute("merchantIds", merchantIds);  model.addAttribute("tel", mer.getTel());
+                model.addAttribute("user", mer.getContacts());
             }
 //            model.addAttribute("page", merchantService.findPage(page));
 //            model.addAttribute("provinceList", provinceService.findList());
             return "new/accountData";
         }
         model.addAttribute("page", merchantService.findPage(page));
+
         return "new/accountData";
     }
 
