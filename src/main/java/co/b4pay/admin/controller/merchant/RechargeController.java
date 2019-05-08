@@ -7,11 +7,13 @@ import co.b4pay.admin.common.web.BaseController;
 import co.b4pay.admin.common.web.PageAttribute;
 import co.b4pay.admin.entity.MallAddress;
 import co.b4pay.admin.entity.Merchant;
+import co.b4pay.admin.entity.QRChannel;
 import co.b4pay.admin.entity.Recharge;
 import co.b4pay.admin.entity.base.Page;
 import co.b4pay.admin.entity.base.Params;
 import co.b4pay.admin.service.MallAddressService;
 import co.b4pay.admin.service.MerchantService;
+import co.b4pay.admin.service.QRChannelService;
 import co.b4pay.admin.service.RechargeService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -41,6 +43,8 @@ public class RechargeController extends BaseController {
 
     @Autowired
     private RechargeService rechargeService;
+    @Autowired
+    private QRChannelService qrChannelService;
 
     @Autowired
     private MerchantService merchantService;
@@ -53,6 +57,17 @@ public class RechargeController extends BaseController {
     public String list(Model model, @PageAttribute Page<Recharge> page) {
         String merchantIds = LoginHelper.getMerchantIds();
         String roleIds = LoginHelper.getRoleIds();
+
+        String merid = LoginHelper.getMerchantIds();
+        //System.out.println("merid是："+merid);
+        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
+        model.addAttribute("amount",qrChannel.getRechargeAmount());
+        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
+
+
+
         if (roleIds.contains("1")) {   //如果拥有超级管理员权限
             model.addAttribute("page", rechargeService.findPage(page));
         } else if (StringUtil.isNoneBlank(merchantIds)) {    //如果不是超级管理员则只查询个人交易记录信息
@@ -97,6 +112,17 @@ public class RechargeController extends BaseController {
     public String add(Model model) {
         String merchantIds = LoginHelper.getMerchantIds();
         String merchantId = merchantIds.substring(0, merchantIds.length() - 1);
+
+
+        String merid = LoginHelper.getMerchantIds();
+        //System.out.println("merid是："+merid);
+        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
+        model.addAttribute("amount",qrChannel.getRechargeAmount());
+        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
+
+
         //List<MallAddress> mallAddressList = mallAddressService.findByMerchantId(merchantId);
         //model.addAttribute("mallAddressList", mallAddressList);
         Merchant merchant = merchantService.get(merchantId);

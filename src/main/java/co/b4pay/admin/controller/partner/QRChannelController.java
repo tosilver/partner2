@@ -42,6 +42,17 @@ public class QRChannelController extends BaseController {
     public String list(Model model, @PageAttribute Page<QRChannel> page) {
         String merchantIds = LoginHelper.getMerchantIds();
         String roleIds = LoginHelper.getRoleIds();
+
+        String merid = LoginHelper.getMerchantIds();
+        //System.out.println("merid是："+merid);
+        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
+        model.addAttribute("amount",qrChannel.getRechargeAmount());
+        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
+
+
+
         if (roleIds.contains("1")) {   //如果拥有超级管理员权限
             model.addAttribute("page", qrChannelService.findPage(page));
         } else if (StringUtil.isNoneBlank(merchantIds)) {    //如果不是超级管理员则只查询个人交易记录信息

@@ -5,6 +5,8 @@ import co.b4pay.admin.common.helper.LoginHelper;
 import co.b4pay.admin.common.system.entity.Resource;
 import co.b4pay.admin.common.system.service.AdminService;
 import co.b4pay.admin.common.web.BaseController;
+import co.b4pay.admin.entity.QRChannel;
+import co.b4pay.admin.service.QRChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,8 @@ public class MainController extends BaseController {
 
     @Autowired
     private AdminService adminService;
-
+    @Autowired
+    private QRChannelService qrChannelService;
     @Autowired
     private ResourceService resourceService;
 
@@ -40,6 +43,17 @@ public class MainController extends BaseController {
         //根据权限返回其能访问到的菜单目录
         List<Resource> menus = resourceService.findMenus(permissions);
         // logger.info("menus:::" + Arrays.deepToString(menus.toArray()));
+
+        String merid = LoginHelper.getMerchantIds();
+        //System.out.println("merid是："+merid);
+        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
+        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
+        model.addAttribute("amount",qrChannel.getRechargeAmount());
+        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
+
+
+
         model.addAttribute("menus", menus);
         return "index";
     }

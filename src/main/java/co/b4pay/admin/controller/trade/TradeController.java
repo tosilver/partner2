@@ -64,6 +64,17 @@ public class TradeController extends BaseController {
     public String list(Model model, @PageAttribute Page<Consume> page) {
         String merchantIds = LoginHelper.getMerchantIds();
         String roleIds = LoginHelper.getRoleIds();
+
+        String merid = LoginHelper.getMerchantIds();
+        //System.out.println("merid是："+merid);
+        QRChannel qrChannel1= qrChannelService.findByMerchantId(merid);
+        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
+        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getFrozenCapitalPool());
+        model.addAttribute("amount",qrChannel1.getRechargeAmount());
+        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());
+
+
+
         if (roleIds.contains("1")) {   //如果拥有超级管理员权限
             model.addAttribute("page", consumeService.findPage(page));
         } else if (StringUtil.isNoneBlank(merchantIds)) {//如果不是超级管理员则只查询个人交易记录信息
