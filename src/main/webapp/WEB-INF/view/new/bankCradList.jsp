@@ -14,8 +14,10 @@
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/vendor/animate/animate.min.css">
 
-    <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/assets/js/vendor/mmenu/css/jquery.mmenu.all.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+    <link type="text/css" rel="stylesheet" media="all"
+          href="${pageContext.request.contextPath}/assets/js/vendor/mmenu/css/jquery.mmenu.all.css"/>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/js/vendor/videobackground/css/jquery.videobackground.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/vendor/bootstrap-checkbox.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/css/rickshaw.min.css">
@@ -63,102 +65,94 @@
             <!-- tile -->
             <section class="tile color transparent-black">
 
+                <form id="searchForm" class="form-horizontal" role="form" action="${ctx}/bankCradAdd/list" method="get">
+
+                    <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
+                    <input type="hidden" name="pageSize" value="${page.pageSize}"/>
 
 
-                <!-- tile header -->
-                <div class="tile-header">
-                    <h1><strong>提现账户</strong> 列表</h1>
-                    <div class="search">
-                        <input type="text" placeholder="Search...">
-                    </div>
-                    <div class="controls">
-                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-                <!-- /tile header -->
-                <!-- tile widget -->
-                <div class="tile-widget bg-transparent-black-2">
-                    <div class="row">
-
-                        <button type="button" class="btn btn-danger margin-bottom-20">新增</button>
-
-                    </div>
-                </div>
-                <!-- /tile widget -->
-
-
-
-                <!-- tile body -->
-                <div class="tile-body nopadding">
-
-                    <table class="table table-bordered table-sortable">
-                        <thead>
-                        <tr>
-                            <th>
-                                <div class="checkbox check-transparent">
-                                    <input type="checkbox" value="1" id="allchck">
-                                    <label for="allchck"></label>
-                                </div>
-                            </th>
-                            <th class="sortable sort-alpha sort-asc">编号</th>
-                            <th class="sortable sort-alpha">账号类型</th>
-                            <th class="sortable sort-alpha">银行名称</th>
-                            <th class="sortable sort-alpha">卡号</th>
-                            <th class="sortable sort-alpha">真实姓名</th>
-                            <th class="sortable sort-alpha">联系电话</th>
-                            <th class="sortable sort-alpha">添加时间</th>
-                            <th style="width: 30px;"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="checkbox check-transparent">
-                                    <input type="checkbox" value="1" id="chck01">
-                                    <label for="chck01"></label>
-                                </div>
-                            </td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td><a href="#" class="check-toggler checked"></a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-                <!-- /tile body -->
-
-
-                <!-- tile footer -->
-                <div class="tile-footer bg-transparent-black-2 rounded-bottom-corners">
-                    <div class="row">
-
-                        <div class="col-sm-4 text-right sm-center">
-                            <ul class="pagination pagination-xs nomargin pagination-custom">
-                                <li class="disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h1><strong>提现账户</strong> 列表</h1>
+                        <div class="search">
+                            <input type="text" placeholder="Search...">
                         </div>
-
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
                     </div>
-                </div>
-                <!-- /tile footer -->
+                    <!-- /tile header -->
+                    <!-- tile widget -->
+                    <div class="tile-widget bg-transparent-black-2">
+                        <div class="row">
 
+                            <button type="button" class="btn btn-primary btn-lg margin-bottom-20"
+                                    onclick="window.location='${ctx}/bankCradAdd/add'">新增
+                            </button>
 
+                        </div>
+                    </div>
+                    <!-- /tile widget -->
+                    <!-- tile body -->
+                    <div class="tile-body nopadding">
 
+                        <form id="Form" class="form-horizontal" role="form" action="${ctx}/bankCradAdd/list" method="get">
 
+                            <table class="table table-bordered table-sortable">
+                                <thead>
+                                    <tr>
+                                        <th class="sortable sort-alpha">序号</th>
+                                        <th class="sortable sort-alpha ">商户ID</th>
+                                        <th class="sortable sort-alpha">账号类型</th>
+                                        <th class="sortable sort-alpha">银行名称</th>
+                                        <th class="sortable sort-alpha">银行卡号</th>
+                                        <th class="sortable sort-alpha">真实姓名</th>
+                                        <th class="sortable sort-alpha">联系电话</th>
+                                        <th class="sortable sort-alpha">添加时间</th>
+                                        <th class="sortable sort-amount">状态</th>
+                                        <th class="sortable sort-amount">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${page.list}" var="bankCradAdd" varStatus="status">
+                                        <tr>
+                                            <td>${status.index + 1}</td>
+                                            <td>${bankCradAdd.merchantId}</td>
+                                            <td>
+                                                <c:if test="${bankCradAdd.accountType == 0}">银行卡</c:if>
+                                                <c:if test="${bankCradAdd.accountType == 1}">支付宝</c:if>
+                                                <c:if test="${bankCradAdd.accountType == 2}">微信<%--<span style="color:red">微信</span>--%></c:if>
+                                            </td>
+                                            <td>${bankCradAdd.bankName}</td>
+                                            <td>${bankCradAdd.cardNo}</td>
+                                            <td>${bankCradAdd.customerName}</td>
+                                            <td>${bankCradAdd.phoneNum}</td>
+                                            <td>${bankCradAdd.createTime}</td>
+
+                                            <td>${bankCradAdd.status== 0 ? "<font color='#FF0000'>停用</font>":"可用" }</td>
+                                            <td>
+                                                <c:if test="${bankCradAdd.status==1}">
+                                                    <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=0"
+                                                       onclick="return confirm('确认要停用该收款码吗？', this.href)">停用</a>
+                                                </c:if>
+                                                <c:if test="${bankCradAdd.status==0}">
+                                                    <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=1"
+                                                       onclick="return confirm('确认要启用该收款码吗？', this.href)">启用</a>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <!-- /tile body -->
+
+                    <!-- tile footer -->
+                    <%@ include file="../include/pagination.jsp" %>
+                    <!-- /tile footer -->
+                </form>
             </section>
             <!-- /tile -->
         </div>
@@ -171,12 +165,18 @@
 <script src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/js/vendor/blockui/jquery.blockUI.js"></script>
 
 <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.time.min.js"></script>

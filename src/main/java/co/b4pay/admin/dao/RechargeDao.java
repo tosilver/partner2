@@ -22,5 +22,4 @@ import java.util.Map;
 @MyBatisDao
 public interface RechargeDao extends ICrudDao<Recharge> {
 
-
 }

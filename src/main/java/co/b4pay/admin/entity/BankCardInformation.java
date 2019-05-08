@@ -1,6 +1,10 @@
 package co.b4pay.admin.entity;
 
 import co.b4pay.admin.entity.base.BaseEntity;
+import com.alibaba.druid.sql.visitor.functions.Bin;
+import org.omg.PortableInterceptor.INACTIVE;
+
+import java.math.BigInteger;
 
 
 public class BankCardInformation extends BaseEntity {
@@ -17,9 +21,7 @@ public class BankCardInformation extends BaseEntity {
         return merchantId;
     }
 
-    public void setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
-    }
+    public void setMerchantId(String merchantId) { this.merchantId = merchantId; }
 
     public Integer getAccountType() {
         return accountType;
@@ -29,9 +31,7 @@ public class BankCardInformation extends BaseEntity {
         this.accountType = accountType;
     }
 
-    public String getBankName() {
-        return bankName;
-    }
+    public String getBankName() { return bankName; }
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
@@ -53,9 +53,7 @@ public class BankCardInformation extends BaseEntity {
         this.customerName = customerName;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
-    }
+    public String getPhoneNum() { return phoneNum; }
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;

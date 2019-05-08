@@ -89,6 +89,11 @@
                                 <i class="fa fa-caret-right"></i> 二维码管理
                             </a>
                         </li>
+                        <li>
+                            <a href="${ctx}/bankCradAdd/list">
+                                <i class="fa fa-caret-right"></i> 提现账户管理
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
