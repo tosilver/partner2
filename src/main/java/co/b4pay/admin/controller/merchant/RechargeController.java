@@ -59,12 +59,12 @@ public class RechargeController extends BaseController {
         String roleIds = LoginHelper.getRoleIds();
 
         String merid = LoginHelper.getMerchantIds();
-        //System.out.println("merid是："+merid);
+       /* //System.out.println("merid是："+merid);
         QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
         System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
         System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
         model.addAttribute("amount",qrChannel.getRechargeAmount());
-        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
+        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());*/
 
 
 
@@ -115,12 +115,12 @@ public class RechargeController extends BaseController {
 
 
         String merid = LoginHelper.getMerchantIds();
-        //System.out.println("merid是："+merid);
+       /* //System.out.println("merid是："+merid);
         QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
         System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
         System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
         model.addAttribute("amount",qrChannel.getRechargeAmount());
-        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
+        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());*/
 
 
         //List<MallAddress> mallAddressList = mallAddressService.findByMerchantId(merchantId);

@@ -67,11 +67,11 @@ public class TradeController extends BaseController {
 
         String merid = LoginHelper.getMerchantIds();
         //System.out.println("merid是："+merid);
-        QRChannel qrChannel1= qrChannelService.findByMerchantId(merid);
-        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
+        //QRChannel qrChannel1= qrChannelService.findByMerchantId(merid);
+        /*System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
         System.out.println("qrChannel获取表pool的信息："+qrChannel1.getFrozenCapitalPool());
         model.addAttribute("amount",qrChannel1.getRechargeAmount());
-        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());
+        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());*/
 
 
 
@@ -115,6 +115,7 @@ public class TradeController extends BaseController {
             returnData.put("merchantId", trade.getMerchant().getId());
             returnData.put("payTime", String.valueOf(trade.getUpdateTime().getTime()));
             //获取用户到账金额
+            BigDecimal totalAmount = trade.getTotalAmount();
             BigDecimal accountAmount = trade.getAccountAmount();
             consumeService.updateStatus(id, status,new BigDecimal(amount),accountAmount);
             Merchant m = merchantService.get(trade.getMerchant().getId());
@@ -134,6 +135,26 @@ public class TradeController extends BaseController {
             String sign = signature.sign(content, m.getSecretKey(), "UTF-8");
             returnData.put("signature", sign);
             consumeService.updateTrade(id, returnData.toString(), 0);
+            //把手动确认回调的金额从冻结资金池中减去
+            //判断通道是否为个码充值
+            Channel channel = trade.getChannel();
+            String channelId = channel.getId();
+            if ("353".equals(channelId)){
+                //获取订单所属二维码通道
+                QRChannel qrChannel = trade.getQrChannel();
+                //因为在订单的二维码通道里面只包着二维码通道的id和名称,所以需要通过二维码的id去查询所属二维码的
+                String qrChannelId = qrChannel.getId();
+                QRChannel qrChannel2 = qrChannelService.get(qrChannelId);
+                //冻结资金池
+                BigDecimal frozenCapitalPool = qrChannel2.getFrozenCapitalPool();
+                BigDecimal subtract = frozenCapitalPool.subtract(totalAmount);
+                //通道收益
+                BigDecimal turnover = qrChannel2.getTurnover();
+                BigDecimal add = turnover.add(new BigDecimal(amount));
+                qrChannel2.setTurnover(add);
+                qrChannel2.setFrozenCapitalPool(subtract);
+                qrChannelService.update(qrChannel2);
+            }
             JobTrade jobTrade = consumeService.findJobTradeById(trade.getId());
             //发起给客户回调任务
             new Thread(new NotitfTask(jobTrade, trade)).start();

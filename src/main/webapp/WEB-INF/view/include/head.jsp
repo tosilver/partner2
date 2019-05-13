@@ -39,8 +39,7 @@ justify-content: center;">
             </li>
         </ul>
 
-        <%--我的测试地点~--%>
-        <ul class="nav navbar-nav refresh" style="border: 1px solid red;display: flex;flex-direction: column;
+        <%--<ul class="nav navbar-nav refresh" style="border: 1px solid red;display: flex;flex-direction: column;
 justify-content: center;">
             <li class="" style="height: 44px;list-style: none;
             margin: 0 auto;width: 800px">
@@ -52,12 +51,10 @@ justify-content: center;">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <font size="4px">您的账号信息</font>，通道余额：${pool}；冻结资金：${amount}
-
                     </i>
                 </a>
             </li>
-        </ul>
-
+        </ul>--%>
 
         <!-- /Page refresh -->
         <!-- Quick Actions -->
