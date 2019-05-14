@@ -9,7 +9,7 @@
         a.card_no AS  "cardNo",
         a.bank_mark AS "bankMark",
         a.customer_name AS "customerName",
-        a.phoneNum AS "phoneNum",
+        a.phone_num AS "phoneNum",
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
         a.status
@@ -115,7 +115,7 @@
         <selectKey resultType="string" keyProperty="id" order="AFTER">
             select @@IDENTITY as id
         </selectKey>
-        insert into dst_bankcrad_information(merchant_id,account_type,bank_name,card_no,bank_mark,customer_name,phoneNum,create_time,update_time,status)
+        insert into dst_bankcrad_information(merchant_id,account_type,bank_name,card_no,bank_mark,customer_name,phone_num,create_time,update_time,status)
         values(#{merchantId}, #{accountType},#{bankName},#{cardNo},#{bankMark},#{customerName},#{phoneNum}, now(), now(),#{status})
     </insert>
 

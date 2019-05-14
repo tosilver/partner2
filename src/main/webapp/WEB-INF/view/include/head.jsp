@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/view/include/taglib.jsp" %>
 
-
 <!-- 页面头部 -->
 <!-- Fixed navbar -->
 <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar"style="/*border: 1px solid red;*/display: flex;flex-direction: column;
@@ -17,29 +16,25 @@ justify-content: center;">
             </a>
             <div class="sidebar-collapse">
                 <a href="#"style="position: center">
-                    <i class="fa fa-bars"></i>
+                    <i style="display: inline-block;font-family: FontAwesome;font-style: normal;font-weight: normal" class="fa-bars"></i>
                 </a>
             </div>
         </div>
         <!-- Branding end -->
         <!-- .nav-collapse -->
 
-
         <!-- Page refresh -->
         <ul class="nav navbar-nav refresh" >
             <li class="divided" style="height: 44px;list-style: none;
             margin: 0 auto;">
                 <a href="#" class="page-refresh">
-                    <i class="fa fa-refresh" style="height: max-content;list-style: none;
-            margin: 0 auto;">
-
-                    </i>
+                    <i class="fa-refresh" style="height: max-content;list-style: none;margin: 0 auto; display: inline-block;font-family: FontAwesome;font-style: normal;font-weight: normal"></i>
                 </a>
             </li>
         </ul>
 
         <%--我的测试地点~--%>
-        <ul class="nav navbar-nav refresh" style="/*border: 1px solid red;*/display: flex;flex-direction: column;justify-content: center;">
+        <ul class="nav navbar-nav refresh" style="display: flex;flex-direction: column;justify-content: center;">
             <li class="" style="height: 44px;list-style: none;
             margin: 0 auto;width: 800px">
                 <a href="#" class="">
@@ -49,7 +44,6 @@ justify-content: center;">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <font size="4px" color="black">您的账号信息：通道余额：${pool}；冻结资金：${amount}</font>
-
                     </i>--%>
                 </a>
             </li>
@@ -83,9 +77,7 @@ justify-content: center;">
                 </ul>
             </li>
         </ul>
-
     </div>
-
 
     <!-- 页面头部 /-->
     <!-- Sidebar，左边菜单栏 -->
@@ -159,6 +151,3 @@ justify-content: center;">
 
         </ul>
     </div>
-
-    <!-- Sidebar end -->
-    <!--/.nav-collapse -->

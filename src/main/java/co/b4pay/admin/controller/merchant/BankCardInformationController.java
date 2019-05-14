@@ -62,7 +62,6 @@ public class BankCardInformationController extends BaseController {
         return "new/bankCradList";
     }
 
-
     @RequestMapping(value = "save", method = RequestMethod.POST)
     @RequiresPermissions(value = "bankCradAdd:save")
     public String save(RedirectAttributes redirectAttributes, String accountType, String bankName, String cardNo, String bankMark, String customerName, String phoneNum){
@@ -80,11 +79,8 @@ public class BankCardInformationController extends BaseController {
         bankCardInformation.setCustomerName(customerName.trim());
         bankCardInformation.setPhoneNum(phoneNum.trim());
         bankCardInformation.setStatus(1);
-        //bankCardInformationService.save(bankCardInformation);
-
 
         if (StringUtil.isNoneBlank(bankCardInformation.getBankName())){
-
             int count = bankCardInformationService.save(bankCardInformation);
 
         } else {
@@ -104,7 +100,6 @@ public class BankCardInformationController extends BaseController {
 
         return "new/bankCradAdd";
     }
-
 
     @RequestMapping(value = "updateStatus", method = RequestMethod.GET)
     public String updateStatus(RedirectAttributes redirectAttributes, String id, int status) {

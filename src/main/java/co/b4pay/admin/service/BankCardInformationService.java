@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BankCardInformationService extends CrudService<BankCardInformationDao, BankCardInformation> {
 
-
     /**
      * 更改状态
      *

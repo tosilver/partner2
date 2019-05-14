@@ -116,6 +116,7 @@ public class TradeController extends BaseController {
             returnData.put("payTime", String.valueOf(trade.getUpdateTime().getTime()));
             //获取用户到账金额
             BigDecimal accountAmount = trade.getAccountAmount();
+            BigDecimal totalAmount = trade.getTotalAmount();
             consumeService.updateStatus(id, status,new BigDecimal(amount),accountAmount);
             Merchant m = merchantService.get(trade.getMerchant().getId());
             //获取商户总余额

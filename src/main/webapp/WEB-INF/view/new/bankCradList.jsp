@@ -70,7 +70,6 @@
                     <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
                     <input type="hidden" name="pageSize" value="${page.pageSize}"/>
 
-
                     <!-- tile header -->
                     <div class="tile-header">
                         <h1><strong>银行卡</strong> 列表</h1>
