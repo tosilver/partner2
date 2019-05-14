@@ -127,7 +127,7 @@
                             <div class="form-group form-footer">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <button type="submit" class="btn btn-primary">提交</button>
-                                    <button type="reset" class="btn btn-default">返回</button>
+                                    <button type="reset" class="btn btn-default" onclick="history.go(-1)">返回</button>
                                 </div>
                             </div>
                         </form>
