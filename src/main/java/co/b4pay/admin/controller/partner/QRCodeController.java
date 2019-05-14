@@ -270,6 +270,15 @@ public class QRCodeController extends BaseController {
         return "redirect:/malladdress/list";
     }
 
+    @RequestMapping("form")
+    @RequiresPermissions("qrcode:form")
+    public String form(Model model, String id) {
+        if (StringUtil.isNoneBlank(id)) {
+            model.addAttribute("QRCode", qrCodeService.get(id));
+        }
+        model.addAttribute("merchantList", merchantService.findList());
+        return "new/QRCodeAdd";
+    }
 
 
 

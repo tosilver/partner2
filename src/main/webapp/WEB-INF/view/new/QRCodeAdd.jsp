@@ -63,7 +63,7 @@
 
                 <!-- tile header -->
                 <div class="tile-header">
-                    <h1><strong>二维码</strong>上传</h1>
+                    <h1><strong>二维码</strong> ${empty QRCode.id?'上传':'修改'}</h1>
                     <div class="controls">
                         <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                         <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -75,6 +75,8 @@
                 <div class="tile-body">
 
                     <form class="form-horizontal" role="form" action="${ctx}/qrcode/save" method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" name="id" value="${QRCode.id}"/>
 
                         <div class="form-group">
                             <label for="input02" class="col-sm-4 control-label">二维码类型</label>
@@ -90,7 +92,7 @@
                         <div class="form-group">
                             <label for="fullname" class="col-sm-4 control-label">二维码名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="fullname" name="name">
+                                <input type="text" class="form-control" id="fullname" name="name" value="${QRCode.name}">
                                 <span style="color: black"><strong>命名规则:姓名(类型+金额)</strong> <br>示例:"张三(支付宝+100)"</span>
                             </div>
                         </div>
@@ -98,14 +100,14 @@
                         <div class="form-group">
                             <label for="fullname" class="col-sm-4 control-label">二维码收款金额</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="fullname1" name="money">
+                                <input type="text" class="form-control" id="fullname1" name="money" value="${QRCode.money}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="fullname" class="col-sm-4 control-label">上传二维码链接</label>
+                            <label for="fullname" class="col-sm-4 control-label">二维码链接</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="fullname2" name="qrcodeData">
+                                <input type="text" class="form-control" id="fullname2" name="qrcodeData" value="${QRCode.codeData}">
                             </div>
                         </div>
 

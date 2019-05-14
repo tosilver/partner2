@@ -54,7 +54,7 @@ public class MallAddressController extends BaseController {
             page.setParams(params);
             model.addAttribute("page", mallAddressService.findPage(page));
         }
-        return "new/balance";
+        return "new/balance1";
     }
 
     @RequestMapping("form")

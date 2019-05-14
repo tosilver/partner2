@@ -4,7 +4,7 @@
 
 <!-- 页面头部 -->
 <!-- Fixed navbar -->
-<div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar"style="border: 1px solid red;display: flex;flex-direction: column;
+<div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar" style="border: 1px solid red;display: flex;flex-direction: column;
 justify-content: center;">
 
     <!-- .nav-collapse -->
@@ -17,7 +17,7 @@ justify-content: center;">
                 <strong>Bao Zhi Lin</strong>
             </a>
             <div class="sidebar-collapse">
-                <a href="#"style="position: center">
+                <a href="#" style="position: center">
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
@@ -27,7 +27,7 @@ justify-content: center;">
 
 
         <!-- Page refresh -->
-        <ul class="nav navbar-nav refresh" >
+        <ul class="nav navbar-nav refresh">
             <li class="divided" style="height: 44px;list-style: none;
             margin: 0 auto;">
                 <a href="#" class="page-refresh">
@@ -39,22 +39,22 @@ justify-content: center;">
             </li>
         </ul>
 
-        <%--<ul class="nav navbar-nav refresh" style="border: 1px solid red;display: flex;flex-direction: column;
-justify-content: center;">
+        <ul class="nav navbar-nav refresh" style="border: 1px solid red;display: flex;flex-direction: column;
+            justify-content: center;">
             <li class="" style="height: 44px;list-style: none;
             margin: 0 auto;width: 800px">
                 <a href="#" class="">
-                    <i class="" style="height: max-content;list-style: none;
-            margin: 0 auto;align-content: center;text-align: center">
+                    <i style="height: max-content;list-style: none;
+                    margin: 0 auto;align-content: center;text-align: center">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <font size="4px">您的账号信息</font>，通道余额：${pool}；冻结资金：${amount}
+                        <font size="4px">您的账号信息</font>，通道余额：；冻结资金：
                     </i>
                 </a>
             </li>
-        </ul>--%>
+        </ul>
 
         <!-- /Page refresh -->
         <!-- Quick Actions -->

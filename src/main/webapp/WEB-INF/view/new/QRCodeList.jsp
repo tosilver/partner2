@@ -111,6 +111,9 @@
                                                 <a href="${ctx}/qrcode/updateStatus?id=${qrcode.id}&status=1"
                                                    onclick="return confirm('确认要启用该收款码吗？', this.href)">启用</a>
                                             </c:if>
+                                            <c:if test="${qrcode.status==0}">
+                                                <a href="${ctx}/qrcode/form?id=${qrcode.id}">修改</a>
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </c:forEach>

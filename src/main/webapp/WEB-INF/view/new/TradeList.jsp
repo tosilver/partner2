@@ -60,9 +60,10 @@
 
         <!-- content main container -->
         <div class="main">
+
             <!-- tile -->
             <section class="tile color transparent-white">
-                <form id="searchForm" class="form-horizontal" role="form" action="${ctx}/recharge/list" method="get">
+                <form id="searchForm" class="form-horizontal" role="form" action="${ctx}/trade/list" method="get">
                     <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
                     <input type="hidden" name="pageSize" value="${page.pageSize}"/>
                     <!-- tile header -->
@@ -97,6 +98,7 @@
                                     <td>
                                         <c:if test="${trade.tradeState == 0}"><span style="color: #5e35b1">未支付</c:if>
                                         <c:if test="${trade.tradeState == 1}">已支付</c:if>
+                                        <c:if test="${trade.tradeState == 2}">客服确认支付</c:if>
                                     </td>
                                     <td><fmt:formatDate value='${trade.createTime}' pattern='yyyy-MM-dd HH:mm:ss'/></td>
                                     <td>
