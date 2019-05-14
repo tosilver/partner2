@@ -129,7 +129,7 @@
                                             <td>${bankCradAdd.bankMark}</td>
                                             <td>${bankCradAdd.customerName}</td>
                                             <td>${bankCradAdd.phoneNum}</td>
-                                            <td>${bankCradAdd.createTime}</td>
+                                            <td><fmt:formatDate value='${bankCradAdd.createTime}' pattern='yyyy-MM-dd HH:mm:ss'/></td>
 
                                             <td>${bankCradAdd.status== 0 ? "<font color='#FF0000'>停用</font>":"可用" }</td>
                                             <td>

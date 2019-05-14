@@ -69,7 +69,6 @@ public class BankCardInformationController extends BaseController {
         //获取商户ID
         String merchantIds = LoginHelper.getMerchantIds();
         String merchantId = merchantIds.substring(0, merchantIds.length() - 1);
-
         BankCardInformation bankCardInformation = new BankCardInformation();
         bankCardInformation.setMerchantId(merchantId);
         bankCardInformation.setBankName(bankName);
@@ -79,10 +78,8 @@ public class BankCardInformationController extends BaseController {
         bankCardInformation.setCustomerName(customerName.trim());
         bankCardInformation.setPhoneNum(phoneNum.trim());
         bankCardInformation.setStatus(1);
-
         if (StringUtil.isNoneBlank(bankCardInformation.getBankName())){
             int count = bankCardInformationService.save(bankCardInformation);
-
         } else {
             return "new/bankCradAdd";
         }

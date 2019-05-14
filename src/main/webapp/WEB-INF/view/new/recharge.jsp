@@ -99,30 +99,20 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group">
-                                <label for="fullname" class="col-sm-4 control-label">银行名称</label>
+                                <label for="input01" class="col-sm-4 control-label">充值账户</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="fullname" name="bankName" parsley-trigger="change" parsley-required="true" parsley-minlength="4"
-                                           parsley-validation-minlength="1">
+                                    <select class="chosen-select chosen-transparent form-control" id="input03" name="bankCardId">
+                                        <option value=" ">选择账户</option>
+                                        <c:forEach items="#{bankCardlist}" var="bankCard">
+                                            <option value="${bankCard.id}">${bankCard.bankName}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="input04" class="col-sm-4 control-label">卡号</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="input04" name="cardNo" parsley-trigger="change" parsley-required="true" parsley-minlength="14"
-                                           parsley-validation-minlength="1">
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="input05" class="col-sm-4 control-label">真实姓名</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="input05" name="customerName" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
-                                           parsley-validation-minlength="1">
-                                </div>
-                            </div>
+
 
                             <div class="form-group form-footer">
                                 <div class="col-sm-offset-4 col-sm-8">

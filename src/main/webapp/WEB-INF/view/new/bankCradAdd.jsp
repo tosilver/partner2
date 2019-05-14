@@ -95,7 +95,7 @@
                     <label for="input03" class="col-sm-4 control-label">银行名称</label>
                     <div class="col-sm-8">
 
-                        <input type="text" class="form-control" id="input03" name="bankName" parsley-trigger="change" parsley-required="true" parsley-minlength="4"
+                        <input type="text" class="form-control" id="input03" name="bankName" parsley-trigger="change" parsley-required="true" parsley-minlength="6"
                         parsley-validation-minlength="1"/>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <label for="input04" class="col-sm-4 control-label">银行卡号</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="input04" name="cardNo" parsley-trigger="change" parsley-required="true" parsley-minlength="14"
+                        <input type="text" class="form-control" id="input04" name="cardNo" parsley-trigger="change" parsley-required="true" parsley-minlength="12"
                         parsley-validation-minlength="1">
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                     <div class="form-group">
                         <label for="input05" class="col-sm-4 control-label">银行卡编号</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input05" name="bankMark" parsley-trigger="change" parsley-required="true" parsley-minlength="14"
+                            <input type="text" class="form-control" id="input05" name="bankMark" parsley-trigger="change" parsley-required="true" parsley-minlength="3"
                                    parsley-validation-minlength="1">
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <label for="input07" class="col-sm-4 control-label">联系电话</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="input07" name="phoneNum" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
+                        <input type="text" class="form-control" id="input07" name="phoneNum" parsley-trigger="change" parsley-required="true" parsley-minlength="11"
                         parsley-validation-minlength="1">
                     </div>
                 </div>
@@ -152,36 +152,49 @@
 </div>
 
 
-    <script src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${pageContext.request.contextPath}/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/blockui/jquery.blockUI.js"></script>
 
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/raphael-min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/d3.v2.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/raphael-min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/d3.v2.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/morris/morris.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/morris/morris.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/summernote/summernote.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/summernote/summernote.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/assets/js/minimal.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/vendor/parsley/parsley.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/minimal.min.js"></script>
+
+<script>
+
+    $(function () {
+
+        //chosen select input
+        $(".chosen-select").chosen({disable_search_threshold: 10});
+
+    })
+
+</script>
 
 </body>
 </html>
