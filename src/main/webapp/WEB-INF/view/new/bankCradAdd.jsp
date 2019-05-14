@@ -67,7 +67,7 @@
 
             <!-- tile header -->
             <div class="tile-header">
-                <h1><strong>新增</strong> 提现账户</h1>
+                <h1><strong>新增</strong> 银行卡</h1>
                 <div class="controls">
                     <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                     <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -78,7 +78,7 @@
             <!-- tile body -->
             <div class="tile-body">
 
-                <form class="form-horizontal" role="form" action="${ctx}/bankCradAdd/save" method="get" parsley-validate id="numbervalidations">
+                <form class="form-horizontal" role="form" action="${ctx}/bankCradAdd/save" method="post" parsley-validate id="numbervalidations">
 
                 <div class="form-group">
                     <label for="input02" class="col-sm-4 control-label">账户类型</label>
@@ -108,18 +108,26 @@
                     </div>
                 </div>
 
+                    <div class="form-group">
+                        <label for="input05" class="col-sm-4 control-label">银行卡编号</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="input05" name="bankMark" parsley-trigger="change" parsley-required="true" parsley-minlength="14"
+                                   parsley-validation-minlength="1">
+                        </div>
+                    </div>
+
                 <div class="form-group">
-                    <label for="input05" class="col-sm-4 control-label">真实姓名</label>
+                    <label for="input06" class="col-sm-4 control-label">真实姓名</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="input05" name="customerName" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
+                        <input type="text" class="form-control" id="input06" name="customerName" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
                         parsley-validation-minlength="1">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="input06" class="col-sm-4 control-label">联系电话</label>
+                    <label for="input07" class="col-sm-4 control-label">联系电话</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="input06" name="phoneNum" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
+                        <input type="text" class="form-control" id="input07" name="phoneNum" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
                         parsley-validation-minlength="1">
                     </div>
                 </div>

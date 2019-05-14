@@ -73,7 +73,7 @@
 
                     <!-- tile header -->
                     <div class="tile-header">
-                        <h1><strong>提现账户</strong> 列表</h1>
+                        <h1><strong>银行卡</strong> 列表</h1>
                         <div class="search">
                             <input type="text" placeholder="Search...">
                         </div>
@@ -107,6 +107,7 @@
                                         <th class="sortable sort-alpha">账号类型</th>
                                         <th class="sortable sort-alpha">银行名称</th>
                                         <th class="sortable sort-alpha">银行卡号</th>
+                                        <th class="sortable sort-alpha">银行卡编号</th>
                                         <th class="sortable sort-alpha">真实姓名</th>
                                         <th class="sortable sort-alpha">联系电话</th>
                                         <th class="sortable sort-alpha">添加时间</th>
@@ -122,10 +123,11 @@
                                             <td>
                                                 <c:if test="${bankCradAdd.accountType == 0}">银行卡</c:if>
                                                 <c:if test="${bankCradAdd.accountType == 1}">支付宝</c:if>
-                                                <c:if test="${bankCradAdd.accountType == 2}">微信<%--<span style="color:red">微信</span>--%></c:if>
+                                                <c:if test="${bankCradAdd.accountType == 2}">微信</c:if>
                                             </td>
                                             <td>${bankCradAdd.bankName}</td>
                                             <td>${bankCradAdd.cardNo}</td>
+                                            <td>${bankCradAdd.bankMark}</td>
                                             <td>${bankCradAdd.customerName}</td>
                                             <td>${bankCradAdd.phoneNum}</td>
                                             <td>${bankCradAdd.createTime}</td>
@@ -134,11 +136,11 @@
                                             <td>
                                                 <c:if test="${bankCradAdd.status==1}">
                                                     <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=0"
-                                                       onclick="return confirm('确认要停用该收款码吗？', this.href)">停用</a>
+                                                       onclick="return confirm('确认要停用该银行卡吗？', this.href)">停用</a>
                                                 </c:if>
                                                 <c:if test="${bankCradAdd.status==0}">
                                                     <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=1"
-                                                       onclick="return confirm('确认要启用该收款码吗？', this.href)">启用</a>
+                                                       onclick="return confirm('确认要启用该银行卡吗？', this.href)">启用</a>
                                                 </c:if>
                                             </td>
                                         </tr>

@@ -4,7 +4,7 @@ import co.b4pay.admin.entity.base.BaseEntity;
 import com.alibaba.druid.sql.visitor.functions.Bin;
 import org.omg.PortableInterceptor.INACTIVE;
 
-import java.math.BigInteger;
+
 
 
 public class BankCardInformation extends BaseEntity {
@@ -13,6 +13,7 @@ public class BankCardInformation extends BaseEntity {
     private Integer accountType;   //账户类型
     private String bankName;          //银行名称
     private String cardNo;         //银行卡号
+    private String bankMark;       //银行卡编号
     private String customerName;    //真实姓名
     private String phoneNum;      //联系电话
 
@@ -49,6 +50,10 @@ public class BankCardInformation extends BaseEntity {
         return customerName;
     }
 
+    public String getBankMark() { return bankMark; }
+
+    public void setBankMark(String bankMark) { this.bankMark = bankMark; }
+
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
@@ -58,4 +63,5 @@ public class BankCardInformation extends BaseEntity {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
 }

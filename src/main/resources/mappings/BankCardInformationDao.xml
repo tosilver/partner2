@@ -7,8 +7,9 @@
         a.account_type AS  "accountType",
         a.bank_name AS  "bankName",
         a.card_no AS  "cardNo",
+        a.bank_mark AS "bankMark",
         a.customer_name AS "customerName",
-        a.phone_num AS "phoneNum",
+        a.phoneNum AS "phoneNum",
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
         a.status
@@ -114,8 +115,8 @@
         <selectKey resultType="string" keyProperty="id" order="AFTER">
             select @@IDENTITY as id
         </selectKey>
-        insert into dst_bankcrad_information(merchant_id,account_type,bank_name,card_no,customer_name,phone_num,create_time,update_time,status)
-        values(#{merchantId}, #{accountType},#{bankName},#{cardNo},#{customerName},#{phoneNum}, now(), now(),#{status})
+        insert into dst_bankcrad_information(merchant_id,account_type,bank_name,card_no,bank_mark,customer_name,phoneNum,create_time,update_time,status)
+        values(#{merchantId}, #{accountType},#{bankName},#{cardNo},#{bankMark},#{customerName},#{phoneNum}, now(), now(),#{status})
     </insert>
 
     <update id="update">
@@ -135,12 +136,7 @@
         <if test="turnover != null">
             turnover = #{turnover},
         </if>
-        <if test="rechargeAmount != null">
-            recharge_amount = #{rechargeAmount},
-        </if>
-        <if test="frozenCapitalPool != null">
-            frozen_capital_pool = #{frozenCapitalPool},
-        </if>
+
         <if test="rate != null">
             rate = #{rate},
         </if>
@@ -152,20 +148,6 @@
     <update id="updateStatus">
         UPDATE dst_bankcrad_information
         SET status = #{status},
-        update_time=#{nowDate}
-        WHERE id = #{id}
-    </update>
-
-    <update id="updateRechargeAmount">
-        UPDATE dst_bankcrad_information
-        SET recharge_amount = #{rechargeAmount},
-        update_time=#{nowDate}
-        WHERE id = #{id}
-    </update>
-
-    <update id="updateFrozenCapitalPool">
-        UPDATE dst_bankcrad_information
-        SET frozen_capital_pool = #{frozenCapitalPool},
         update_time=#{nowDate}
         WHERE id = #{id}
     </update>

@@ -68,10 +68,10 @@ public class TradeController extends BaseController {
         String merid = LoginHelper.getMerchantIds();
         //System.out.println("merid是："+merid);
         QRChannel qrChannel1= qrChannelService.findByMerchantId(merid);
-        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
-        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getFrozenCapitalPool());
-        model.addAttribute("amount",qrChannel1.getRechargeAmount());
-        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());
+//        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
+//        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getFrozenCapitalPool());
+//        model.addAttribute("amount",qrChannel1.getRechargeAmount());
+//        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());
 
 
 
