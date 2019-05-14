@@ -53,7 +53,7 @@
 
 
             <h2><i class="fa fa-tachometer"></i> Dashboard
-                <span>// Place subtitle here...</span></h2>
+            <span>// Place subtitle here...</span></h2>
 
         </div>
         <!-- /page header -->
@@ -65,66 +65,86 @@
 
 
 
-                <!-- tile header -->
-                <div class="tile-header">
-                    <h1><strong>新增</strong> 提现账户</h1>
-                    <div class="controls">
-                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+            <!-- tile header -->
+            <div class="tile-header">
+                <h1><strong>新增</strong> 银行卡</h1>
+                <div class="controls">
+                    <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                    <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <!-- /tile header -->
+
+            <!-- tile body -->
+            <div class="tile-body">
+
+                <form class="form-horizontal" role="form" action="${ctx}/bankCradAdd/save" method="post" parsley-validate id="numbervalidations">
+
+                <div class="form-group">
+                    <label for="input02" class="col-sm-4 control-label">账户类型</label>
+                    <div class="col-sm-8">
+                        <select class="chosen-select chosen-transparent form-control" id="input02" name="accountType">
+                            <option value="0">银行卡</option>
+                            <option value="1">支付宝</option>
+                            <option value="2">微信</option>
+                        </select>
                     </div>
                 </div>
-                <!-- /tile header -->
 
-                <!-- tile body -->
-                <div class="tile-body">
+                <div class="form-group">
+                    <label for="input03" class="col-sm-4 control-label">银行名称</label>
+                    <div class="col-sm-8">
 
-                    <form class="form-horizontal" role="form">
-
-                        <div class="form-group">
-                            <label for="input01" class="col-sm-4 control-label">银行名称</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="input01">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input02" class="col-sm-4 control-label">卡号</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="input02">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input03" class="col-sm-4 control-label">真实姓名</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="input03">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input04" class="col-sm-4 control-label">联系电话</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="input04">
-                            </div>
-                        </div>
-
-                        <div class="form-group form-footer">
-                            <div class="col-sm-offset-4 col-sm-8">
-                                <button type="submit" class="btn btn-primary">提交</button>
-                                <button type="reset" class="btn btn-default">返回</button>
-                            </div>
-                        </div>
-
-                    </form>
-
+                        <input type="text" class="form-control" id="input03" name="bankName" parsley-trigger="change" parsley-required="true" parsley-minlength="4"
+                        parsley-validation-minlength="1"/>
+                    </div>
                 </div>
-                <!-- /tile body -->
 
+                <div class="form-group">
+                    <label for="input04" class="col-sm-4 control-label">银行卡号</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="input04" name="cardNo" parsley-trigger="change" parsley-required="true" parsley-minlength="14"
+                        parsley-validation-minlength="1">
+                    </div>
+                </div>
 
+                    <div class="form-group">
+                        <label for="input05" class="col-sm-4 control-label">银行卡编号</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="input05" name="bankMark" parsley-trigger="change" parsley-required="true" parsley-minlength="14"
+                                   parsley-validation-minlength="1">
+                        </div>
+                    </div>
 
+                <div class="form-group">
+                    <label for="input06" class="col-sm-4 control-label">真实姓名</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="input06" name="customerName" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
+                        parsley-validation-minlength="1">
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label for="input07" class="col-sm-4 control-label">联系电话</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="input07" name="phoneNum" parsley-trigger="change" parsley-required="true" parsley-minlength="2"
+                        parsley-validation-minlength="1">
+                    </div>
+                </div>
+
+                <div class="form-group form-footer">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button type="reset" class="btn btn-default" onclick="history.go(-1)">返回</button>
+                    </div>
+                </div>
+
+            </form>
+
+            </div>
+            <!-- /tile body -->
             </section>
-            <!-- /tile -->
+        <!-- /tile -->
         </div>
     </div>
 </div>
@@ -132,36 +152,36 @@
 </div>
 
 
-<script src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="${pageContext.request.contextPath}/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/vendor/blockui/jquery.blockUI.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/raphael-min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/d3.v2.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/raphael-min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/d3.v2.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/vendor/morris/morris.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/morris/morris.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/vendor/summernote/summernote.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/summernote/summernote.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/minimal.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/minimal.min.js"></script>
 
 </body>
 </html>

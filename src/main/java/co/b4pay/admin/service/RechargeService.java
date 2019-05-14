@@ -26,6 +26,4 @@ import java.util.List;
 @Transactional
 public class RechargeService extends CrudService<RechargeDao, Recharge> {
 
-
-
 }

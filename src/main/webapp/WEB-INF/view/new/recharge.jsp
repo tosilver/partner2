@@ -64,7 +64,7 @@
 
                     <!-- tile header -->
                     <div class="tile-header">
-                        <h1><strong>商城充值</strong></h1>
+                        <h1><strong>通道充值</strong></h1>
                         <div class="controls">
                             <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                             <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -127,7 +127,7 @@
                             <div class="form-group form-footer">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <button type="submit" class="btn btn-primary">提交</button>
-                                    <button type="reset" class="btn btn-default">返回</button>
+                                    <button type="reset" class="btn btn-default" onclick="history.go(-1)">返回</button>
                                 </div>
                             </div>
                         </form>

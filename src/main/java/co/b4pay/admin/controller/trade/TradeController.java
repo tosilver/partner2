@@ -67,11 +67,11 @@ public class TradeController extends BaseController {
 
         String merid = LoginHelper.getMerchantIds();
         //System.out.println("merid是："+merid);
-        //QRChannel qrChannel1= qrChannelService.findByMerchantId(merid);
-        /*System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
-        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getFrozenCapitalPool());
-        model.addAttribute("amount",qrChannel1.getRechargeAmount());
-        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());*/
+        QRChannel qrChannel1= qrChannelService.findByMerchantId(merid);
+//        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
+//        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getFrozenCapitalPool());
+//        model.addAttribute("amount",qrChannel1.getRechargeAmount());
+//        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());
 
 
 
@@ -115,8 +115,8 @@ public class TradeController extends BaseController {
             returnData.put("merchantId", trade.getMerchant().getId());
             returnData.put("payTime", String.valueOf(trade.getUpdateTime().getTime()));
             //获取用户到账金额
-            BigDecimal totalAmount = trade.getTotalAmount();
             BigDecimal accountAmount = trade.getAccountAmount();
+            BigDecimal totalAmount = trade.getTotalAmount();
             consumeService.updateStatus(id, status,new BigDecimal(amount),accountAmount);
             Merchant m = merchantService.get(trade.getMerchant().getId());
             //获取商户总余额

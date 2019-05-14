@@ -31,26 +31,23 @@ justify-content: center;">
             <li class="divided" style="height: 44px;list-style: none;
             margin: 0 auto;">
                 <a href="#" class="page-refresh">
-                    <i class="fa fa-refresh" style="height: max-content;list-style: none;
-            margin: 0 auto;">
-
-                    </i>
+                    <i class="fa-refresh" style="height: max-content;list-style: none;margin: 0 auto; display: inline-block;font-family: FontAwesome;font-style: normal;font-weight: normal"></i>
                 </a>
             </li>
         </ul>
 
-        <ul class="nav navbar-nav refresh" style="border: 1px solid red;display: flex;flex-direction: column;
-            justify-content: center;">
+        <%--<ul class="nav navbar-nav refresh" style="border: 1px solid red;display: flex;flex-direction: column;
+justify-content: center;">
             <li class="" style="height: 44px;list-style: none;
             margin: 0 auto;width: 800px">
                 <a href="#" class="">
-                    <i style="height: max-content;list-style: none;
-                    margin: 0 auto;align-content: center;text-align: center">
+                    <i class="" style="height: max-content;list-style: none;
+            margin: 0 auto;align-content: center;text-align: center">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <font size="4px">您的账号信息</font>，通道余额：；冻结资金：
+                        <font size="4px">您的账号信息</font>，通道余额：${pool}；冻结资金：${amount}
                     </i>
                 </a>
             </li>
@@ -84,9 +81,7 @@ justify-content: center;">
                 </ul>
             </li>
         </ul>
-
     </div>
-
 
     <!-- 页面头部 /-->
     <!-- Sidebar，左边菜单栏 -->
@@ -104,23 +99,28 @@ justify-content: center;">
 
                 <ul class="menu">
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-list"></i> 账号管理 <b class="fa fa-plus dropdown-plus"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="${ctx}/merchant/list">
-                                    <i class="fa fa-caret-right"></i> 基本资料
-                                </a>
-                            </li>
-                            <li>
-                                <a href="${ctx}/qrcode/list">
-                                    <i class="fa fa-caret-right"></i> 二维码管理
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-list"></i> 账号管理 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="${ctx}/merchant/list">
+                                <i class="fa fa-caret-right"></i> 基本资料
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${ctx}/qrcode/list">
+                                <i class="fa fa-caret-right"></i> 二维码管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${ctx}/bankCradAdd/list">
+                                <i class="fa fa-caret-right"></i> 添加银行卡管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -155,5 +155,3 @@ justify-content: center;">
 
         </ul>
     </div>
-    <!-- Sidebar end -->
-    <!--/.nav-collapse -->
