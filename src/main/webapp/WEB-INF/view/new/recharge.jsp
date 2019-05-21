@@ -105,7 +105,7 @@
                                     <select class="chosen-select chosen-transparent form-control" id="input03" name="bankCardId">
                                         <option value=" ">选择账户</option>
                                         <c:forEach items="#{bankCardlist}" var="bankCard">
-                                            <option value="${bankCard.id}">${bankCard.bankName}</option>
+                                            <option value="${bankCard.id}">${bankCard.bankName}:${bankCard.cardNo}</option>
                                         </c:forEach>
                                     </select>
                                 </div>

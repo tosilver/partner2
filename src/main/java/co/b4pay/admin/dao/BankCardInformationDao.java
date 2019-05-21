@@ -5,6 +5,8 @@ import co.b4pay.admin.common.biz.dao.annotation.MyBatisDao;
 import co.b4pay.admin.entity.BankCardInformation;
 import co.b4pay.admin.entity.base.Params;
 
+import java.util.List;
+
 /**
  * 添加银行卡DAO
  */
@@ -16,8 +18,10 @@ public interface BankCardInformationDao extends ICrudDao<BankCardInformation> {
      */
     int updateStatus(Params params);
 
+
+
     /**
      * 根据商户ID查找商城集合
      */
-//    BankCardInformation findByMerchantId(String merchantId);
+    List<BankCardInformation> findListById(String merchantId);
 }

@@ -9,6 +9,8 @@ import co.b4pay.admin.entity.base.Params;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class BankCardInformationService extends CrudService<BankCardInformationDao, BankCardInformation> {
@@ -26,6 +28,11 @@ public class BankCardInformationService extends CrudService<BankCardInformationD
             //System.out.println(e.getMessage());
         }
         return dao.updateStatus(params);
+    }
+
+
+    public List<BankCardInformation> findListByID(String merchantId) {
+        return dao.findListById(merchantId);
     }
 
     /**
