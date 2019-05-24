@@ -64,7 +64,7 @@
 
                     <!-- tile header -->
                     <div class="tile-header">
-                        <h1><strong>通道充值</strong></h1>
+                        <h1><strong>通道充值</strong>&nbsp;&nbsp;:如无账户可选择,请前往<strong style="color: #c10802">账户管理---(添加银行卡)</strong></h1>
                         <div class="controls">
                             <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                             <a href="#" class="remove"><i class="fa fa-times"></i></a>

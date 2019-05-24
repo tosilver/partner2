@@ -139,7 +139,7 @@ public class TradeController extends BaseController {
             //判断通道是否为个码充值
             Channel channel = trade.getChannel();
             String channelId = channel.getId();
-            if ("353".equals(channelId)){
+            if ("356".equals(channelId)|| "357".equals(channelId)){
                 //获取订单所属二维码通道
                 QRChannel qrChannel = trade.getQrChannel();
                 //因为在订单的二维码通道里面只包着二维码通道的id和名称,所以需要通过二维码的id去查询所属二维码的
