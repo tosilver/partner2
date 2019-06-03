@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.b4pay.admin.dao.FrozenCapitalTradeDao">
+    <sql id="Base_Column_List">
+        a.id,
+        a.frozen_capital_pool_id AS "qrChannel.id",
+        (SELECT `name` FROM dst_qr_channel WHERE id = a.frozen_capital_pool_id limit 1) AS "qrChannel.Name",
+        a.out_trade_no AS "outTradeNo",
+        a.status,
+        a.money,
+        a.frozen_capital_status AS "FrozenCapitalStatus",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+    <sql id="Base_Join_Clause">
+        LEFT JOIN dst_qr_channel f ON f.id = a.qrchannel_id
+    </sql>
+
+    <sql id="Base_Where_Clause">
+        <where>
+            AND 1=1
+            <if test="outTradeNo != null and outTradeNo != ''">
+                AND a.out_trade_no LIKE concat('%', #{outTradeNo}, '%')
+            </if>
+            <if test="qrchannelId != null and qrchannelId != ''">
+                AND a.frozen_capital_pool_id = #{qrchannelId}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.create_time &gt;= #{startDate}
+            </if>
+            <if test="status != null and status != ''">
+                AND a.status = #{status}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.create_time &lt;= #{endDate}
+            </if>
+            <if test="currentYear != null">
+                AND YEAR (a.create_time) = #{currentYear}
+            </if>
+            <if test="currentMonth != null">
+                AND MONTH (a.create_time) = #{currentMonth}
+            </if>
+            <if test="currentDay != null">
+                AND DAY (a.create_time) = #{currentDay}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="count" resultType="int">
+        SELECT count(1) FROM dst_frozen_capital_trade a
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+
+    <select id="get" resultType="co.b4pay.admin.entity.FrozenCapitalTrade">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_frozen_capital_trade a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="co.b4pay.admin.entity.FrozenCapitalTrade">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_frozen_capital_trade a
+        <include refid="Base_Where_Clause"/>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY a.${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+        <if test="pageSize &gt; 0">
+            LIMIT ${pageFirst}, ${pageSize}
+        </if>
+    </select>
+
+    <insert id="insert">
+        insert into dst_frozen_capital_trade(id,frozen_capital_pool_id,out_trade_no,status,money,frozen_capital_status,create_time,update_time)
+        values(#{id}, #{qrChannel.id},#{outTradeNo}, #{status},#{money},#{FrozenCapitalStatus},now(), now())
+    </insert>
+
+
+    <select id="findListCount" resultType="co.b4pay.admin.entity.FrozenCapitalTrade">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_frozen_capital_trade a
+        <include refid="Base_Where_Clause"/>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY a.${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByStatus" resultType="co.b4pay.admin.entity.FrozenCapitalTrade">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_frozen_capital_trade a
+        WHERE a.status = #{status}
+    </select>
+
+    <select id="sumMoney" resultType="java.lang.Double">
+        SELECT SUM(a.money) FROM dst_frozen_capital_trade a
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+</mapper>

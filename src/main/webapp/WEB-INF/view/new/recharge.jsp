@@ -27,14 +27,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/vendor/chosen/css/chosen-bootstrap.css">
 
     <link href="${pageContext.request.contextPath}/assets/css/minimal.css" rel="stylesheet">
-
 </head>
 <body class="bg-1">
 
 <!-- Preloader -->
-<div class="mask">
-    <div id="loader"></div>
-</div>
+
 <!--/Preloader -->
 
 <!--/Preloader -->
@@ -48,7 +45,7 @@
 
     </div>
         <!-- 内容区域 -->
-        <div id="content" class="col-md-12">
+  <%--      <div id="content" class="col-md-12">
             <!-- page header -->
             <div class="pageheader">
 
@@ -64,7 +61,7 @@
 
                     <!-- tile header -->
                     <div class="tile-header">
-                        <h1><strong>通道充值</strong>&nbsp;&nbsp;:如无账户可选择,请前往<strong style="color: #c10802">账户管理---(添加银行卡)</strong></h1>
+                        <h1><strong>通道充值</strong></h1>
                         <div class="controls">
                             <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                             <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -75,8 +72,9 @@
                     <!-- tile body -->
                     <div class="tile-body">
 
-                        <form class="form-horizontal" role="form" action="${ctx}/recharge/save" method="post" parsley-validate id="numbervalidations">
 
+
+                        <form class="form-horizontal" role="form" action="${ctx}/recharge/save" method="post" parsley-validate id="numbervalidations">
                             <div class="form-group">
                                 <label for="input01" class="col-sm-4 control-label">商户名称</label>
                                 <div class="col-sm-8">
@@ -121,12 +119,55 @@
                                 </div>
                             </div>
                         </form>
+
+
+
                     </div>
                     <!-- /tile body -->
                 </section>
                 <!-- /tile -->
             </div>
         </div>
+</div>--%>
+    <div class="primary" >
+        <h1>通道充值</h1>
+        <form action="${ctx}/recharge/save" method="post" class="col_form">
+            <div class="nav_h1">
+                <p>保证金余额：${qrchannel.rechargeAmount}</p>
+                <p>保证金冻结额：${qrchannel.frozenCapitalPool}</p>
+            </div>
+            <div class="form_div">
+                <label>通道名称</label>
+                <select name="merchantName">
+                    <option value="${agency.id}">${agency.company}</option>
+                </select>
+            </div><br />
+            <div class="form_div">
+                <label>充值金额</label>
+                <select name="amount">
+                    <option value="10000">10000元</option>
+                    <option value="20000">20000元</option>
+                    <option value="30000">30000元</option>
+                    <option value="40000">40000元</option>
+                    <option value="50000">50000元</option>
+                </select>
+            </div><br />
+            <div class="form_div">
+                <label>银行卡号</label>
+                <select name="bankCardId">
+                    <option value=" ">选择银行卡账户</option>
+                    <c:forEach items="#{bankCardlist}" var="bankCard">
+                    <option value="${bankCard.id}">${bankCard.bankName}:${bankCard.cardNo}</option>
+                    </c:forEach>
+                    </select>
+            </div>
+            <div class="form_div"><button type="submit">提交</button><button type="button" id="select" onclick="javascript:history.back(1);">返回</button></div>
+            <div class="nav_h1">
+                <p>模拟数据:</p>
+                <p>充值后保证金总额:${111}</p>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- 内容区域 /-->
 

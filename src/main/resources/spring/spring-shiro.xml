@@ -114,8 +114,11 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                /register/findBrandByName = anon
+                /register = anon
                 /test/** = anon
                 /assets/** = anon
+                /js/**=anon
                 /static/** = anon
                 /favicon.ico = anon
                 /index.js.map = anon

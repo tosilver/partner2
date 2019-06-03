@@ -19,6 +19,8 @@ public class LoginHelper {
     public static final String LOGIN_USERNAME_KEY = "user_name";
     public static final String LOGIN_MERCHANT_IDS = "merchant_ids";
     public static final String LOGIN_ROLE_IDS = "role_ids";
+    public static final String LOGIN_AGENCY_ID ="agency_id";
+
 
     /**
      * 获取登录用户ID
@@ -36,6 +38,7 @@ public class LoginHelper {
         }
         return null;
     }
+
 
     /**
      * 获取登录用户的角色ID
@@ -72,6 +75,26 @@ public class LoginHelper {
             return null;
         }
     }
+
+    /**
+     * 获取登录用户的代理ID
+     *
+     * @return
+     */
+    public static String getLoginAgencyId() {
+        WebSubject webSubject = (WebSubject) SecurityUtils.getSubject();
+        if (webSubject == null) {
+            return null;
+        }
+        Object agencyId = WebUtils.getSessionAttribute((HttpServletRequest) webSubject.getServletRequest(), LOGIN_AGENCY_ID);
+        if (agencyId != null) {
+            return agencyId.toString();
+        } else {
+            return null;
+        }
+    }
+
+
 
     /**
      * 获取登录用户名

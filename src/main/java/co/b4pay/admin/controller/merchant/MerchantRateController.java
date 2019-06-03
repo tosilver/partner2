@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * 商户费率
+ * 代理费率
  * Created by john on 2018/6/7.
  */
 @Controller

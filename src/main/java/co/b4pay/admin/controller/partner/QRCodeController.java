@@ -64,27 +64,16 @@ public class QRCodeController extends BaseController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     @RequiresPermissions("qrcode:list")
     public String list(Model model, @PageAttribute Page<qrcode> page) {
-        String merchantIds = LoginHelper.getMerchantIds();
+        String agencyId = LoginHelper.getLoginAgencyId();
         String roleIds = LoginHelper.getRoleIds();
-
-        String merid = LoginHelper.getMerchantIds();
-        //System.out.println("merid是："+merid);
-        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
-//        model.addAttribute("amount",qrChannel.getRechargeAmount());
-//        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
-
-
-
         if (roleIds.contains("1")) {   //如果拥有超级管理员权限
             model.addAttribute("page", qrCodeService.findPage(page));
-        } else if (StringUtil.isNoneBlank(merchantIds)) {    //如果不是超级管理员则只查询个人收款码列表
+        } else if (StringUtil.isNoneBlank(agencyId)) {    //如果不是超级管理员则只查询个人收款码列表
             Params params = page.getParams();
             if (null == params) {
-                params = Params.create("merchantId", merchantIds.substring(0, merchantIds.length() - 1));
+                params = Params.create("merchantId", agencyId);
             } else {
-                params.put("merchantId", merchantIds.substring(0, merchantIds.length() - 1));
+                params.put("merchantId",agencyId);
             }
             page.setParams(params);
             model.addAttribute("page", qrCodeService.findPage(page));
@@ -95,8 +84,8 @@ public class QRCodeController extends BaseController {
     @RequestMapping("add")
     @RequiresPermissions("qrcode:add")
     public String form(HttpServletRequest request) {
-        //1.获取上传目录路径
-        uploadPath = request.getSession().getServletContext().getRealPath("/upload") + "/";
+        /*//1.获取上传目录路径
+        uploadPath = request.getSession().getServletContext().getRealPath("/upload") + "/";*/
         return "new/QRCodeAdd";
     }
 
@@ -192,25 +181,35 @@ public class QRCodeController extends BaseController {
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
     @RequiresPermissions(value = "qrcode:save")
-    public String save(RedirectAttributes redirectAttributes, String name,String type,String money,String qrcodeData) {
-        String merchantIds = LoginHelper.getMerchantIds();
-        String substring = merchantIds.substring(0, merchantIds.length() - 1);
-        qrcode code = new qrcode();
-        code.setName(name);
-        code.setMoney(new BigDecimal(money));
-        code.setCodeData(qrcodeData.trim());
-        code.setCodeType(type);
-        code.setMerchantId(substring);
-        code.setTurnover(new BigDecimal(0));
-        code.setStatus(1);
-        code.setRate(new BigDecimal(0));
-        int save = qrCodeService.save(code);
+    public String save(RedirectAttributes redirectAttributes, String name,String type,String money,String qrcodeData,String id) {
+
+        String agencyId = LoginHelper.getLoginAgencyId();
+        //String substring = merchantIds.substring(0, merchantIds.length() - 1);
+        int save=0;
+        if ("".equals(id)){
+            qrcode code = new qrcode();
+            code.setName(name);
+            code.setMoney(new BigDecimal(money));
+            code.setCodeData(qrcodeData.trim());
+            code.setCodeType(type);
+            code.setMerchantId(agencyId);
+            code.setTurnover(new BigDecimal(0));
+            code.setStatus(1);
+            code.setRate(new BigDecimal(0));
+            save = qrCodeService.save(code);
+        }else {
+            qrcode qrcode = qrCodeService.get(id);
+            qrcode.setCodeType(type);
+            qrcode.setName(name);
+            qrcode.setMoney(new BigDecimal(money));
+            qrcode.setCodeData(qrcodeData);
+            save= qrCodeService.update(qrcode);
+        }
         if (save>0){
             addMessage(redirectAttributes, "新增成功");
         }else {
             addMessage(redirectAttributes, "新增失败");
         }
-
         return "redirect:/qrcode/list";
     }
 
@@ -279,7 +278,6 @@ public class QRCodeController extends BaseController {
         model.addAttribute("merchantList", merchantService.findList());
         return "new/QRCodeAdd";
     }
-
 
 
 }

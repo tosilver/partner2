@@ -24,4 +24,7 @@ public interface BankCardInformationDao extends ICrudDao<BankCardInformation> {
      * 根据商户ID查找商城集合
      */
     List<BankCardInformation> findListById(String merchantId);
+
+
+    List<BankCardInformation> findListByIdAndStatus(String merchantId,int status);
 }

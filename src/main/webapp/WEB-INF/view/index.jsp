@@ -46,21 +46,37 @@
         <%@ include file="include/head.jsp" %>
         <!-- 页面头部 /-->
         <!-- 内容区域 -->
-        <div id="content" class="col-md-12">
-            <!-- page header -->
-            <div class="pageheader">
-                <h2><i class="fa fa-tachometer"></i> Dashboard
-                    <span>// Place subtitle here...</span>
-                </h2>
 
+            <div class="primary">
+                <h1>欢迎  <shiro:principal/>  回来</h1>
+                <div class="primary_notice">
+                    <div>
+                        <p>充值账户</p>
+                        <span>账号：</span>
+                        <span>660看哈是否健康按时的凯撒大厦京哈实践活动杀害的金沙江还是大家骄傲和设计大厦看到就哈萨克大家撒扩大京哈设计大厦及肯定是就哈萨克还记得萨克和大家按时京哈时间蛤科是浪费时间啊刷卡健身房卡就是浪费啊啊设计开发静安寺垃圾水库附近ask法律双卡手机发萨拉</span>
+                    </div>
+                    <div>
+                        <p>重要通知</p>
+                        <span>账号：</span>
+                        <span>660看哈是否健康蛤科是浪费时间啊刷卡健身房卡就是浪费啊啊设计开发静安寺垃圾水库附近ask法律双卡手机发萨拉</span>
+                    </div>
+                    <div>
+                        <p>重要通知!</p>
+                        <span>账号：</span>
+                        <span>660看哈是否健康蛤科是浪费时间啊刷卡健身房卡就是浪费啊啊设计开发静安寺垃圾水库附近ask法律双卡手机发萨拉</span>
+                    </div>
+                    <div>
+                        <p>抢单确认模式调整通知</p>
+                        <span class="primary_notice_span">各位尊敬的会员：660看哈是否健康蛤科是浪费时间啊刷卡健身房卡就是浪费啊啊设计开发静安寺垃圾水库附近ask法律双卡手机发萨拉60看哈是否健康蛤科是浪费时间啊刷卡健身房卡就是浪费啊啊设计开发静安寺垃圾水库附近ask法律双卡手机发萨拉60看哈是否健康蛤科是浪费时间啊刷卡健身房卡就是浪费啊啊设计开发静安寺垃圾水库附近ask法律双卡手机发萨拉60看哈是否健康蛤科是浪费时间啊刷卡健身房卡就是浪费啊啊设计开发静安寺垃圾水库附近ask法律双卡手机发萨拉</span>
+                    </div>
+                </div>
+
+                <%--<div class="Total">
+                    <p class="Total_nav">保证金金额：932.42</p>
+                    <p>今日奖励金总额：0.00</p>
+                    <p>团队分润总额：0.00</p>
+                </div>--%>
             </div>
-            <!-- /page header -->
-
-            <!-- content main container -->
-            <div class="main">
-
-            </div>
-        </div>
     </div>
 </div>
 <!-- 内容区域 /-->

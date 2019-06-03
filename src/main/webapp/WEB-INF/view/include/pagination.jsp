@@ -4,7 +4,7 @@
 <ul class="pagination pagination-xs nomargin pagination-custom">
     <li class="">共${page.totalCount}条记录，</li>
     <li>当前第<input name="currentPage" value="${page.pageIndex }" onblur="currentPage(this.value)"
-                   style="width:30px;text-align:center; vertical-align:middle" maxlength="3"/>/${page.totalPage }页&nbsp;&nbsp;
+                   style="width:30px;text-align:center; vertical-align:middle" maxlength="3"/>/${page.totalPage}页&nbsp;&nbsp;
     </li>
     <li class="am-pagination-first"><a href="javascript:page(1);">第一页</a></li>
     <li class="am-pagination-prev"><a href="javascript:page(${page.pageIndex > 1? page.pageIndex - 1: 1});">上一页</a></li>

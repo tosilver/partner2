@@ -12,6 +12,7 @@ public class Recharge extends BaseEntity {
 
 
     private String merchantId;            //商户ID
+    private String approveId;            //审批ID
     private String tradeNo;             //充值单号
     private String merchantCompany;     //商户名称
     private String mallName;            //商城名称
@@ -19,6 +20,9 @@ public class Recharge extends BaseEntity {
     private String customerName;       //户主姓名
     private String bankName;           //开户行名称
     private BigDecimal amount;         //充值金额
+    private BigDecimal greatGrandfatherAmount; //上上上级代理收益
+    private BigDecimal grandfatherAmount;      //上上级代理收益
+    private BigDecimal superiorAmount;         //上级费率
     private String appTime;            //审批时间
 
 
@@ -92,5 +96,29 @@ public class Recharge extends BaseEntity {
 
     public void setMallName(String mallName) {
         this.mallName = mallName;
+    }
+
+    public BigDecimal getGreatGrandfatherAmount() {
+        return greatGrandfatherAmount;
+    }
+
+    public void setGreatGrandfatherAmount(BigDecimal greatGrandfatherAmount) {
+        this.greatGrandfatherAmount = greatGrandfatherAmount;
+    }
+
+    public BigDecimal getGrandfatherAmount() {
+        return grandfatherAmount;
+    }
+
+    public void setGrandfatherAmount(BigDecimal grandfatherAmount) {
+        this.grandfatherAmount = grandfatherAmount;
+    }
+
+    public BigDecimal getSuperiorAmount() {
+        return superiorAmount;
+    }
+
+    public void setSuperiorAmount(BigDecimal superiorAmount) {
+        this.superiorAmount = superiorAmount;
     }
 }

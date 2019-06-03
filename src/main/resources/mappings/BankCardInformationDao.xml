@@ -187,4 +187,12 @@
         WHERE a.merchant_id = #{merchantId}
     </select>
 
+    <select id="findListByIdAndStatus" resultType="co.b4pay.admin.entity.BankCardInformation">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_bankcrad_information a
+        WHERE a.merchant_id = #{merchantId}
+        AND a.status = #{status}
+    </select>
+
 </mapper>

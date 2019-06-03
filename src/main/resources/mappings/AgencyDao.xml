@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.b4pay.admin.dao.AgencyDao">
+    <sql id="Base_Column_List">
+        a.id,
+        a.great_grandfather_id AS "greatGrandfatherId",
+        a.great_grandfather_contribution AS "greatGrandfatherContribution",
+        a.grandfather_id AS "grandfatherId",
+        a.grandfather_contribution AS "grandfatherContribution",
+        a.superior_id AS "superiorId",
+        a.superior_contribution AS "superiorContribution",
+        a.company,
+        a.status,
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+    <sql id="Base_Where_Clause">
+        <where>
+            <choose>
+                <when test="status != null">
+                    AND a.status = #{status}
+                </when>
+                <otherwise>
+                    AND a.status &gt; 0
+                </otherwise>
+            </choose>
+            <if test="greatGrandfatherId != null">
+                AND a.great_grandfather_id = #{greatGrandfatherId}
+            </if>
+            <if test="grandfatherId != null">
+                AND a.grandfather_id = #{grandfatherId}
+            </if>
+            <if test="superiorId != null">
+                AND a.superior_id = #{superiorId}
+            </if>
+            <if test="company != null and company!=null">
+                AND a.company LIKE concat('%', #{company}, '%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.create_time &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.create_time &lt;= #{endDate}
+            </if>
+            <if test="currentYear != null">
+                AND YEAR (a.create_time) = #{currentYear}
+            </if>
+            <if test="currentMonth != null">
+                AND MONTH (a.create_time) = #{currentMonth}
+            </if>
+            <if test="currentDay != null">
+                AND DAY (a.create_time) = #{currentDay}
+            </if>
+        </where>
+    </sql>
+
+    <select id="getByUsername" resultType="co.b4pay.admin.common.system.entity.Admin">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_admin a
+        where a.username = #{username}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(1) FROM dst_agency a
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+    <select id="findBySuperiorId" resultType="co.b4pay.admin.entity.Agency">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_agency a
+        WHERE a.superior_id = #{superiorId};
+    </select>
+
+    <select id="findList" resultType="co.b4pay.admin.entity.Agency">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_agency a
+        <include refid="Base_Where_Clause"/>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY a.${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+        <if test="pageSize &gt; 0">
+            LIMIT ${pageFirst}, ${pageSize}
+        </if>
+    </select>
+
+    <select id="get" resultType="co.b4pay.admin.entity.Agency">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dst_agency a
+        WHERE a.id = #{id}
+    </select>
+
+    <insert id="insert">
+        <selectKey resultType="string" keyProperty="id" order="AFTER">
+            select @@IDENTITY as id
+        </selectKey>
+        insert into dst_agency(great_grandfather_id,
+        great_grandfather_contribution,
+        grandfather_id,
+        grandfather_contribution,
+        superior_id,
+        superior_contribution,
+        company,
+        status,
+        create_time,
+        update_time)
+        values(#{greatGrandfatherId},
+        #{greatGrandfatherContribution},
+        #{grandfatherId},
+        #{grandfatherContribution},
+        #{superiorId},
+        #{superiorContribution},
+        #{company},
+        1,
+        now(),
+        now())
+    </insert>
+
+    <update id="update">
+        UPDATE dst_agency SET
+        <if test="greatGrandfatherId != null">
+            great_grandfather_id = #{greatGrandfatherId},
+        </if>
+        <if test="greatGrandfatherContribution != null">
+            great_grandfather_contribution = #{greatGrandfatherContribution},
+        </if>
+        <if test="grandfatherId != null">
+            grandfather_id = #{grandfatherId},
+        </if>
+        <if test="grandfatherContribution != null">
+            grandfather_contribution = #{grandfatherContribution},
+        </if>
+        <if test="superiorId != null">
+            superior_id = #{superiorId},
+        </if>
+        <if test="superiorContribution != null">
+            superior_contribution = #{superiorContribution},
+        </if>
+        <if test="company != null">
+            company = #{company},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        update_time = now()
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE dst_agency
+        SET status = #{status},
+        update_time = now()
+        WHERE id = #{id}
+    </update>
+
+    <select id="findByCompany" parameterType="java.lang.String" resultType="co.b4pay.admin.entity.Agency">
+        SELECT *
+        FROM dst_agency a
+        WHERE a.company = #{company}
+    </select>
+
+
+    <select id="findAll" parameterType="java.lang.String" resultType="co.b4pay.admin.entity.Agency">
+        SELECT *
+        FROM dst_agency a
+        WHERE a.id = #{id}
+    </select>
+
+
+</mapper>

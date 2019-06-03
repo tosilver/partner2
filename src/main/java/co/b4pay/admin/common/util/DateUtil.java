@@ -4,6 +4,8 @@
 package co.b4pay.admin.common.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -77,5 +79,14 @@ public class DateUtil {
         calendar.setTime(date);
         calendar.add(type, value);
         return calendar.getTime();
+    }
+
+    /**
+     * 获取当前时间
+     *
+     * @return Long
+     */
+    public static Date now() {
+        return Date.from(LocalDateTime.now().toInstant(ZoneOffset.of("+8")));
     }
 }

@@ -52,8 +52,6 @@ public class MerchantController extends BaseController {
     @Autowired
     private MerchantService merchantService;
     @Autowired
-    private QRChannelService qrChannelService;
-    @Autowired
     private MerchantRateService merchantRateService;
     @Autowired
     private AdminService adminService;
@@ -61,20 +59,8 @@ public class MerchantController extends BaseController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model, @PageAttribute Page<Merchant> page) {
         String roleIds = LoginHelper.getRoleIds();
-
-        String merid = LoginHelper.getMerchantIds();
-        //System.out.println("merid是："+merid);
-        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
-//        model.addAttribute("amount",qrChannel.getRechargeAmount());
-//        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
-
-
-
         if (!(roleIds.contains("1"))) {      //说明不是超级管理员角色
             String merchantIds = LoginHelper.getMerchantIds();
-
             if (StringUtil.isNoneBlank(merchantIds)) {
                 Merchant mer= merchantService.get(merchantIds);
                 Params params = page.getParams();
@@ -88,12 +74,9 @@ public class MerchantController extends BaseController {
                 model.addAttribute("merchantIds", merchantIds);  model.addAttribute("tel", mer.getTel());
                 model.addAttribute("user", mer.getContacts());
             }
-//            model.addAttribute("page", merchantService.findPage(page));
-//            model.addAttribute("provinceList", provinceService.findList());
             return "new/accountData";
         }
         model.addAttribute("page", merchantService.findPage(page));
-
         return "new/accountData";
     }
 
@@ -126,7 +109,7 @@ public class MerchantController extends BaseController {
         if (StringUtil.isBlank(merchant.getId())) {
             int isExists = merchantService.findByCompany(merchant.getCompany());
             if (isExists > 0) {
-                addErrorMessage(redirectAttributes, "商户(公司名)已经存在，请勿重复添加");
+                addErrorMessage(redirectAttributes, "代理已经存在，请勿重复添加");
                 return "redirect:/merchant/list";
             }
             merchantService.save(merchant);

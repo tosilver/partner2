@@ -47,7 +47,7 @@
         <!-- 页面头部 /-->
     </div>
     <!-- 内容区域 -->
-    <div id="content" class="col-md-12">
+    <%--<div id="content" class="col-md-12">
         <!-- content main container -->
         <div class="main">
             <div class="row">
@@ -105,7 +105,8 @@
             </div>
             <!-- /row -->
         </div>
-    </div>
+    </div>--%>
+
 </div>
 <!-- 内容区域 /-->
 </div>

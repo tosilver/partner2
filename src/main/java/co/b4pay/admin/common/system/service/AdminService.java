@@ -145,4 +145,31 @@ public class AdminService extends CrudService<AdminDao, Admin> {
         return dao.findByMerchantId(merchantIds);
     }
 
+    public List<Admin> findBySuperiorId(Long superiorId){
+        return dao.findBySuperiorId(superiorId);
+    }
+
+    /**
+     * 根据创建者查找会员信息
+     */
+    public List<Admin> findByCreateBy(String createBy) {
+        return dao.findByCreateBy(createBy);
+    }
+
+
+    /**
+     * 根据代理id查找会员信息
+     */
+    public Admin findByAgencyId(String agencyId) {
+        return dao.findByAgencyId(agencyId);
+    }
+
+    /**
+     * 根据邀请码查找会员信息
+     * @param invitationCode
+     * @return
+     */
+    public Admin findByCode(String invitationCode) {
+        return dao.findByCode(invitationCode);
+    }
 }

@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8"/>
 
+<%--
     <link rel="icon" type="image/ico" href="http://tattek.com/minimal/assets/images/favicon.ico"/>
+--%>
     <!-- Bootstrap -->
-    <link href="${pageContext.request.contextPath}/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <%--<link href="${pageContext.request.contextPath}/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/vendor/animate/animate.min.css">
@@ -28,7 +30,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/vendor/chosen/css/chosen.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/vendor/chosen/css/chosen-bootstrap.css">
 
-    <link href="${pageContext.request.contextPath}/assets/css/minimal.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/css/minimal.css" rel="stylesheet">--%>
 
 </head>
 <body class="bg-1">
@@ -49,117 +51,67 @@
         <!-- 页面头部 /-->
     </div>
     <!-- 内容区域 -->
-    <div id="content" class="col-md-12">
-        <!-- page header -->
-        <div class="pageheader">
+    <div class="primary">
+        <%--<h1>银行卡管理</h1>
+        <span class="code">类型</span>
+        <select class="form-control control">
+            <option value="">请选择</option>
+            <option value="">中国银行</option>
+            <option value="">工商银行</option>
+            <option value="">招商银行</option>
+        </select>
+        <span class="code">卡号</span>
+        <input type="text" class="inp"/>
+        <button class="btn" style="vertical-align: inherit;">搜索</button>--%>
+        <%--<button class="btn" style="vertical-align: inherit;background: green;"onclick="window.location='${ctx}/bankCradAdd/add'">添加银行卡</button>--%>
+        <div class="Total">
+            <button class="btn" style="vertical-align: inherit;background: green;"onclick="window.location='${ctx}/bankCradAdd/add'">添加银行卡</button>
+            <div class="">
+                <ul>
+                    <li style="width:5%;">序号</li>
+                    <li  style="width:16.5%;">代理ID</li>
+                    <li  style="width:6%;">账号类型</li>
+                    <li  style="width:7%;">银行名称</li>
+                    <li   style="width:18.5%;">银行卡号</li>
+                    <li  style="width:8%;">银行卡编号</li>
+                    <li  style="width:6%;">真实姓名</li>
+                    <li  style="width:9%;">联系电话</li>
+                    <li  style="width:12%;">添加时间</li>
+                    <li  style="width:5%;">状态</li>
+                    <li  style="width:5%;">操作</li>
+
+                </ul>
+                <c:forEach items="${page.list}" var="bankCradAdd" varStatus="status">
+                    <ul>
+                        <li  style="width:5%;">${status.index + 1}</li>
+                        <li   style="width:16.5%;">${bankCradAdd.merchantId}</li>
+                        <li  style="width:6%;"><c:if test="${bankCradAdd.accountType == 0}">银行卡</c:if>
+                            <c:if test="${bankCradAdd.accountType == 1}">支付宝</c:if>
+                            <c:if test="${bankCradAdd.accountType == 2}">微信</c:if>
+                        </li>
+                        <li  style="width:7%;">${bankCradAdd.bankName}</li>
+                        <li  style="width:18.5%;">${bankCradAdd.cardNo}</li>
+                        <li  style="width:8%;">${bankCradAdd.bankMark}</li>
+                        <li  style="width:6%;">${bankCradAdd.customerName}</li>
+                        <li  style="width:9%;">${bankCradAdd.phoneNum}</li>
+                        <li  style="width:12%;"><fmt:formatDate value='${bankCradAdd.createTime}' pattern='yyyy-MM-dd HH:mm:ss'/></li>
+                        <li  style="width:5%;">${bankCradAdd.status== 0 ? "<font color='#FF0000'>停用</font>":"可用" }</li>
+                        <li  style="width:5%;"> <c:if test="${bankCradAdd.status==1}">
+                            <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=0"
+                               onclick="return confirm('确认要停用该银行卡吗？', this.href)">停用</a>
+                        </c:if>
+                            <c:if test="${bankCradAdd.status==0}">
+                                <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=1"
+                                   onclick="return confirm('确认要启用该银行卡吗？', this.href)">启用</a>
+                            </c:if></li>
+                    </ul>
+                </c:forEach>
 
 
-            <h2><i class="fa fa-tachometer"></i> Dashboard
-                <span>// Place subtitle here...</span></h2>
-
-        </div>
-        <!-- /page header -->
-
-        <!-- content main container -->
-        <div class="main">
-            <!-- tile -->
-            <section class="tile color transparent-black">
-
-                <form id="searchForm" class="form-horizontal" role="form" action="${ctx}/bankCradAdd/list" method="get">
-
-                    <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
-                    <input type="hidden" name="pageSize" value="${page.pageSize}"/>
-
-                    <!-- tile header -->
-                    <div class="tile-header">
-                        <h1><strong>银行卡</strong> 列表</h1>
-                        <div class="search">
-                            <input type="text" placeholder="Search...">
-                        </div>
-                        <div class="controls">
-                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                        </div>
-                    </div>
-                    <!-- /tile header -->
-                    <!-- tile widget -->
-                    <div class="tile-widget bg-transparent-black-2">
-                        <div class="row">
-
-                            <button type="button" class="btn btn-primary btn-lg margin-bottom-20"
-                                    onclick="window.location='${ctx}/bankCradAdd/add'">新增
-                            </button>
-
-                        </div>
-                    </div>
-                    <!-- /tile widget -->
-                    <!-- tile body -->
-                    <div class="tile-body nopadding">
-
-                        <form id="Form" class="form-horizontal" role="form" action="${ctx}/bankCradAdd/list" method="get">
-
-                            <table class="table table-bordered table-sortable">
-                                <thead>
-                                    <tr>
-                                        <th class="sortable sort-alpha">序号</th>
-                                        <th class="sortable sort-alpha ">商户ID</th>
-                                        <th class="sortable sort-alpha">账号类型</th>
-                                        <th class="sortable sort-alpha">银行名称</th>
-                                        <th class="sortable sort-alpha">银行卡号</th>
-                                        <th class="sortable sort-alpha">银行卡编号</th>
-                                        <th class="sortable sort-alpha">真实姓名</th>
-                                        <th class="sortable sort-alpha">联系电话</th>
-                                        <th class="sortable sort-alpha">添加时间</th>
-                                        <th class="sortable sort-amount">状态</th>
-                                        <th class="sortable sort-amount">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${page.list}" var="bankCradAdd" varStatus="status">
-                                        <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>${bankCradAdd.merchantId}</td>
-                                            <td>
-                                                <c:if test="${bankCradAdd.accountType == 0}">银行卡</c:if>
-                                                <c:if test="${bankCradAdd.accountType == 1}">支付宝</c:if>
-                                                <c:if test="${bankCradAdd.accountType == 2}">微信</c:if>
-                                            </td>
-                                            <td>${bankCradAdd.bankName}</td>
-                                            <td>${bankCradAdd.cardNo}</td>
-                                            <td>${bankCradAdd.bankMark}</td>
-                                            <td>${bankCradAdd.customerName}</td>
-                                            <td>${bankCradAdd.phoneNum}</td>
-                                            <td><fmt:formatDate value='${bankCradAdd.createTime}' pattern='yyyy-MM-dd HH:mm:ss'/></td>
-
-                                            <td>${bankCradAdd.status== 0 ? "<font color='#FF0000'>停用</font>":"可用" }</td>
-                                            <td>
-                                                <c:if test="${bankCradAdd.status==1}">
-                                                    <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=0"
-                                                       onclick="return confirm('确认要停用该银行卡吗？', this.href)">停用</a>
-                                                </c:if>
-                                                <c:if test="${bankCradAdd.status==0}">
-                                                    <a href="${ctx}/bankCradAdd/updateStatus?id=${bankCradAdd.id}&status=1"
-                                                       onclick="return confirm('确认要启用该银行卡吗？', this.href)">启用</a>
-                                                </c:if>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
-                    <!-- /tile body -->
-
-                    <!-- tile footer -->
-                    <%@ include file="../include/pagination.jsp" %>
-                    <!-- /tile footer -->
-                </form>
-            </section>
-            <!-- /tile -->
+            </div>
         </div>
     </div>
-</div>
-<!-- 内容区域 /-->
+    <!-- 内容区域 /-->
 </div>
 
 

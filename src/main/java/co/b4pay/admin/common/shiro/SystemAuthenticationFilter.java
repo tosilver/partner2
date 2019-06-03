@@ -52,6 +52,7 @@ public class SystemAuthenticationFilter extends org.apache.shiro.web.filter.auth
         org.springframework.web.util.WebUtils.setSessionAttribute(httpRequest, LoginHelper.LOGIN_USERNAME_KEY, admin.getUsername());
         org.springframework.web.util.WebUtils.setSessionAttribute(httpRequest, LoginHelper.LOGIN_MERCHANT_IDS, admin.getMerchantIdsStr());
         org.springframework.web.util.WebUtils.setSessionAttribute(httpRequest, LoginHelper.LOGIN_ROLE_IDS, admin.getRoleIdsStr());
+        org.springframework.web.util.WebUtils.setSessionAttribute(httpRequest, LoginHelper.LOGIN_AGENCY_ID, admin.getAgencyId());
         // WebUtils.redirectToSavedRequest(request, response, getSuccessUrl());
         // WebUtils.issueRedirect(request, response, getSuccessUrl());
         // httpResponse.sendRedirect(getSuccessUrl());

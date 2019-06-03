@@ -157,4 +157,11 @@
         AND a.router_id = #{routerId}
     </select>
 
+    <select id="findByCostRate" resultType="co.b4pay.admin.entity.MerchantRate">
+        SELECT cost_rate
+        FROM dst_merchant_rate a
+        WHERE a.merchant_id = #{merchantId}
+        AND a.router_id = #{routerId}
+    </select>
+
 </mapper>

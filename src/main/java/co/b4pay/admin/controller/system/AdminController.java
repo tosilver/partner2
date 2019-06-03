@@ -1,13 +1,13 @@
 package co.b4pay.admin.controller.system;
 
-import co.b4pay.admin.common.system.service.OrganizationService;
+import co.b4pay.admin.common.biz.exception.BizException;
 import co.b4pay.admin.common.constants.WebConstants;
 import co.b4pay.admin.common.helper.LoginHelper;
 import co.b4pay.admin.common.system.entity.Admin;
 import co.b4pay.admin.common.system.service.AdminService;
+import co.b4pay.admin.common.system.service.OrganizationService;
 import co.b4pay.admin.common.system.service.RoleService;
 import co.b4pay.admin.common.web.BaseController;
-import co.b4pay.admin.common.biz.exception.BizException;
 import co.b4pay.admin.controller.Utils.Utils;
 import co.b4pay.admin.entity.AdminChannel;
 import co.b4pay.admin.entity.Channel;
@@ -50,10 +50,7 @@ public class AdminController extends BaseController {
     private ChannelService channelService;
 
     @Autowired
-    private ConsumeService  consumeService;
-
-    @Autowired
-    private MallAddressService mallAddressService;
+    private ConsumeService consumeService;
 
     @RequiresPermissions("admin:view")
     @RequestMapping(method = RequestMethod.GET)
@@ -106,26 +103,23 @@ public class AdminController extends BaseController {
         return "system/adminForm";
     }
 
-    @RequiresPermissions("admin:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(Admin admin, RedirectAttributes redirectAttributes) {
-        Admin loginAdmin = adminService.get(LoginHelper.getId());
-        //不是超级管理员进来
-        if (null != loginAdmin && !(loginAdmin.getRoleIds().contains("1"))) {
+        String id = LoginHelper.getId();
+        String username = admin.getUsername();
+        Admin byUsername = adminService.getByUsername(username);
+        if (byUsername==null){
             admin.setOrganizationId(8L);
             List<String> roleList = new ArrayList<>();
-            roleList.add("4");
+            roleList.add("6");
             admin.setRoleIds(roleList);
+            admin.setCreateBy(id);
+            adminService.createUser(admin);
+            redirectAttributes.addFlashAttribute("msg", "新增成功");
+            return "redirect:/Agency/add";
+        }else {
+            return "redirect:/admin/createUser";
         }
-        System.out.println(admin.getChannelIds());
-        String cids = "";
-        if (admin.getChannelIds() != null && admin.getChannelIds().trim() != "") {
-            cids = admin.getChannelIds();
-        }
-        adminService.createUser(admin);
-        channelService.saveAdminChannel(new AdminChannel(Utils.getBigDecimal(adminService.getByUsername(admin.getUsername()).getId()), cids));
-        redirectAttributes.addFlashAttribute("msg", "新增成功");
-        return "redirect:/admin";
     }
 
     @RequiresPermissions("admin:update")
@@ -265,4 +259,10 @@ public class AdminController extends BaseController {
         model.addAttribute("roleList", roleService.findAll());
         model.addAttribute("merchantList", merchantService.findList());
     }
+
+    @RequestMapping(value = "createUser", method = RequestMethod.GET)
+    public String createUser() {
+        return "new/CreateUser";
+    }
+
 }

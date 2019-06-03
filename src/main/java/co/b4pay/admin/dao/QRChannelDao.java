@@ -52,9 +52,9 @@ public interface QRChannelDao extends ICrudDao<QRChannel> {
 
 
     /**
-     * 根据状态查找商城集合
+     * 根据状态查找集合
      */
-    List<MallAddress> findByStatus(int status);
+    List<QRChannel> findByStatus(int status);
 
     /**
      * 根据商户id查找二维码通道

@@ -11,11 +11,14 @@
         a.name,
         a.role_ids AS "roleIdsStr",
         a.merchant_ids AS "merchantIdsStr",
+        a.agency_id AS "agencyId",
         a.email,
         a.phone,
         a.mobile,
         a.photo,
+        a.invitation_code AS "invitationCode",
         a.remark,
+        a.create_by AS "createBy",
         a.create_time as "createTime",
         a.update_time as "updateTime",
         a.status
@@ -23,16 +26,29 @@
 
     <sql id="Base_Where_Clause">
         <where>
+            AND 1=1
             <choose>
-                <when test="status != null">
+                <when test="status != null and status!=''">
                     AND a.status = #{status}
                 </when>
                 <otherwise>
-                    AND a.status != -1
+                    AND a.status &gt;= 0
                 </otherwise>
             </choose>
-            <if test="type != null">
-                AND a.type = #{type}
+            <if test="startDate != null and startDate != ''">
+                AND a.update_time &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.update_time &lt;= #{endDate}
+            </if>
+            <if test="currentYear != null">
+                AND YEAR (a.update_time) = #{currentYear}
+            </if>
+            <if test="currentMonth != null">
+                AND MONTH (a.update_time) = #{currentMonth}
+            </if>
+            <if test="currentDay != null">
+                AND DAY (a.update_time) = #{currentDay}
             </if>
         </where>
     </sql>
@@ -78,10 +94,12 @@
         name,
         role_ids,
         merchant_ids,
+        agency_id,
         email,
         phone,
         mobile,
         photo,
+        invitation_code,
         create_by,
         create_time,
         remark)
@@ -93,10 +111,12 @@
         #{name},
         #{roleIdsStr},
         #{merchantIdsStr},
+        #{agencyId},
         #{email},
         #{phone},
         #{mobile},
         #{photo},
+        #{invitationCode},
         #{createBy},
         now(),
         #{remark})
@@ -126,6 +146,9 @@
             <if test="merchantIdsStr != null">
                 merchant_ids=#{merchantIdsStr},
             </if>
+            <if test="agencyId != null">
+                agency_id =#{agencyId},
+            </if>
             <if test="locked != null">
                 locked=#{locked},
             </if>
@@ -137,6 +160,9 @@
             </if>
             <if test="photo != null">
                 photo=#{photo},
+            </if>
+            <if test="invitationCode != null">
+                invitation_code=#{invitationCode},
             </if>
             <if test="status != null">
                 status=#{status},
@@ -170,5 +196,32 @@
         FROM sys_admin a
         WHERE a.merchant_ids = #{merchantIds}
         LIMIT 1
+    </select>
+
+
+    <select id="findByCreateBy" parameterType="java.lang.String"
+            resultType="co.b4pay.admin.common.system.entity.Admin">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_admin a
+        WHERE a.create_by = #{createBy}
+    </select>
+
+
+    <select id="findByAgencyId" parameterType="java.lang.String"
+            resultType="co.b4pay.admin.common.system.entity.Admin">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_admin a
+        WHERE a.agency_id = #{agencyId}
+    </select>
+
+
+    <select id="findByCode" parameterType="java.lang.String"
+            resultType="co.b4pay.admin.common.system.entity.Admin">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_admin a
+        WHERE a.invitation_code = #{invitationCode}
     </select>
 </mapper>

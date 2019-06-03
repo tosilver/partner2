@@ -1,0 +1,158 @@
+a,b,html,body,span,p,div,i,ul,li,ol,header,footer,section,aside,select{margin: 0;padding:0;list-style: none;}
+header{width: 100%;position: relative;z-index: 100;}
+html,body{width: 100%;height: 100%;overflow: hidden;}
+.lin{background:#3c8dbc !important;width: 100%;height: 5rem ;max-height:5rem ;}
+.header_left{width: 15%;height:5rem;background: #367fa9;max-height: 5rem;text-align: center;line-height: 5rem;color:#FFF;font-size: 1.5rem;float: left;}
+.header_left:hover{background:#357ca5;}
+.header_center{float: left;width: 3%;height:5rem;max-height: 5rem;text-align: center;color: #Fff;line-height:5rem;}
+.header_center:hover{background:#367fa9 ;}
+.header_right{float: right;width: 8%;height: 5rem;max-height:5rem;text-align: center;line-height: 5rem;color: #Fff;font-size: 1.3rem;position: relative;}
+.header_right span{cursor:pointer;float: left;margin-left:1.6rem ;}
+.header_right p{float: left;}
+.header_right b{cursor:pointer;width: 100%;background: #fff;position: absolute;top: 5rem;right: 0;color: #333;display: none;}
+.header_right:hover{background: #367fa9 ;}
+
+/*侧边栏*/
+.sidebar{position: relative;z-index: 99;background: #222d32;height: 100%;top: 0;left: 0;width: 15%;float: left;}
+.sidebar-max{width: 100%;height: 100%;}
+.sidebar_ul{/*padding-top:50px ;*/height: 100%;background: #222d32;min-height: 9999px;}
+.sidebar_ul li{position: relative;}
+.header_li{width:100% ;color: #4b646f;background: #1a2226;padding: 20px 0px 17px 25px;font-size: 1.3rem;box-sizing: border-box;line-height: 1rem;}
+.nav_click{background: #222d32;width: 100%;padding: 7% 0;border-left: 3px solid transparent;box-sizing: border-box;cursor:pointer;position: relative;}
+.nav_click a{padding-left: 7%;color: #dd4b39;pointer-events: none;}
+.nav_click span{color:#b8c7ce;font-size: 1.4rem;padding-left:3% ;}
+.nav_click:hover{border-left: 3px solid #3c8dbc;}
+.nav_click>p{width:70%;height: 4rem;background: rgba(0,0,0,.2);position: absolute;right: -64px;top: 13px;text-align: center;line-height: 4rem;font-size: 1.3rem;display: none;}
+.nav_click:hover span{color: #fff;font-size: 1.5rem;}
+.click{border-left: 3px solid #3c8dbc;color: #fff;}
+.click span{color: #fff;}
+
+/*主要内容*/
+.primary{position: relative;width: 85%;height: 100%;float: right;background: #ecf0f5;min-height: 9999px;margin-top: 45px}
+.primary>h1{font-size: 2.8rem;padding-left:2% ;}
+.primary_notice{width: 96%;margin: 0 auto;background: #fff;border-top:3px solid silver;margin-top:2% ;overflow: hidden;padding-bottom: 2%;}
+.primary_notice div{margin-top: 2rem;}
+.primary_notice p{padding-left:3% ;font-size: 2.6rem;margin-bottom: 0.7rem;}
+.primary_notice span:nth-child(2){font-size: 1.5rem;padding-left:3%;float: left;font-weight: bold;}
+.primary_notice span:nth-child(3){font-size: 1.3rem;font-weight: bold;display: block;width: 80%;}
+.primary_notice div .primary_notice_span{padding-left: 3%;font-size: 1.4rem;width: 95%;}
+
+/*金额等*/
+.Total{width: 96%;margin: 0 auto;background: #fff;border-top:3px solid silver;margin-top:2% ;overflow: hidden;padding-bottom: 1%;}
+.Total p{padding-left:3%;font-size: 1.3rem;font-weight: bold;}
+.Total .Total_nav{margin-top:1.2rem;}
+
+/*搜索*/
+.input{width: 96%;margin:3rem auto 0;overflow: hidden;}
+.input p{padding: 0.7rem 0;background:rgba(255,255,255,.4);float: right;width: 3%;height: 100%;text-align: center;cursor: pointer;}
+.input input{padding: 0.5rem 0;width: 15%;float: right;outline:medium;font-size: 1.1rem;color: #999;}
+
+/*收款单列表二*/
+.account{width: 96%;border: 1px solid silver;margin: 3rem auto 0;border-top: 3px solid silver;height: 9rem;position: relative;}
+.account_p{font-size: 1.2rem;color: #0000FF;position: absolute;top: -1rem;padding:0 1.2rem ;background: #ecf0f5;margin: 0 0 0 0.3rem;}
+.account a{background-color: #ffffff;border: 1px solid #d0d0d0;content: "";display: inline-block;height: 20px;left: 3rem;margin:3.7rem 1rem 0 3rem;width: 20px;border-radius: 99px;top: 4rem;transition: all 0.3s cubic-bezier(0.455, 0.03, 0.215, 1.33) 0s;float: left;}
+.account a i{background-color: blue;content: "";display: inline-block;height: 1rem;margin-left:.42rem;width: 1rem;border-radius: 60%;top: .3rem;transition: all 0.3s cubic-bezier(0.455, 0.03, 0.215, 1.33) 0s;margin-top: -1%;}
+.account .account_span{float: left;line-height: 9rem;margin-right: .5rem;}
+.account .account_span01{float: left;line-height: 9rem;color: orangered;}
+.Collected{width: 96%;overflow: hidden;margin:1rem auto 0;}
+.Collected_header{width: 100%;}
+.Collected_header p{float: left;font-size: 1.4rem;padding: 2rem 0;}
+.Collected_header p input{font-size: 1.4rem;}
+.Collected_header .Collected_p{width: 15%;text-align: center;}
+.Collected_header p:nth-child(3){width: 40%;text-align: center;}
+.Header{}
+.Header p{border-bottom: 1px solid silver;border-top: 1px solid silver;}
+.Header p:nth-child(3){cursor: pointer;}
+.Header p:nth-child(4){color: blue;cursor: pointer;}
+.Header p:nth-child(5){color: blue;cursor: pointer;}
+.fenye{width:35%;margin: 0 auto;}
+.th{border-right: 1px solid silver;text-align: center;line-height: 3rem;background: rgba(255,255,255,.4);cursor: pointer;}
+.th:hover{background: rgba(255,255,255,.1);}
+.th01{background:rgba(255,255,255,.1);}
+
+/*抢单管理*/
+.primary_div{width: 96%;margin: auto;}
+.code{border-radius:4px;text-align: center;background: #Fff;padding: .5% 1%;margin: .6% 0 0 2.2%;float: left;color: #666;}
+.form-control{float: left;width: 45% !important;margin: .6% 0 0 0;}
+.btn{background-color:#5bc0de;border-color: #5bc0de;margin: .4% 0 0 2%;color: #fff;vertical-align: inherit;}
+.Total ul{margin-top:2% ;margin-bottom: 48px;}
+.Total ul li{float: left;font-weight: bold;width: 16.66%;text-align: center;border: 1px solid #f1f1f1;padding: 1% 0;}
+.Total_p{text-align: center;font-size: 1.6rem !important;/*border: 1px solid #f1f1f1;*//*padding: 1% 0*/;margin: 0 0 0 0;box-sizing: border-box;}
+.p:hover{background: #F2F2F2;}
+.Total_ul li{width: 20% !important;}
+
+/*联系客服*/
+.inp{width: 20%;padding: .5% 1%;margin: .6% 0 0 0;border-radius:4px;border: 1px solid silver;}
+
+/*保证金转移*/
+.control{width: 30% !important;}
+.Total_p01{font-size: 1.6rem !important;border: 1px solid #f1f1f1;margin: 0 0 0 0;padding:1.2% 0;position: relative;margin-bottom: 1rem;}
+.Total_p01 span{width: 70%;display:block;border:1px solid #f1f1f1;padding: 0% 0 0% 1%;float: right;height: 100%;position: absolute;top: 0;right: 0;}
+
+/*抢单记录*/
+.control01{width: 18% !important;}
+.icon-inp{width: 18% !important;float: left;}
+.nav_ul{width: 100%;}
+.nav_ul li{width: 11% !important;}
+.min_ul li{text-align: center;}
+.Total_p p{width: 12.5%;padding-left: 0%;border: 1px solid #F1F1F1;padding: 1% 0;margin: 0 0 0px;float: left;font-size: 1rem;}
+.nva_b{font-size: 0.9rem;}
+
+
+.col_form{width: 96%;margin: 0 auto;background: rgba(255,255,255,.4);border-top:3px solid silver;margin-top:2% ;overflow: hidden;padding-bottom: 4%;}
+.form_div{width: 60%;margin: 0 auto;}
+.form_div label{width: 20%;text-align: center;line-height:5rem;}
+.form_div select{width: 70%;padding: 1% 0;margin-top: 1%;}
+.form_div:nth-child(1){margin-top: 3rem;}
+.form_div button{width: 20%;padding: 1% 0;border: 1px solid silver;background:rgba(0,0,0,.8);color: silver;}
+.form_div button:nth-child(1){margin: 0 10% 0 20%;}
+.form_div button:hover{background: rgba(0,0,0,.5);}
+
+/*保证金充值*/
+.Total .primary_div .nav_ul .col-li{width: 10% !important;}
+.Total .primary_div .col-p p{width:10% !important;}
+.Total .primary_div .col-b{font-size: 1.3rem;}
+.Total .primary_div .col-Total_p01{font-size: 1.3rem;font-weight: bold;text-align: center ;padding-left: 0;}
+
+/*保证金流水*/
+.nav_code{margin-left: 0 !important;}
+.nav_sel{width: 16% !important;}
+.nav_h1{font-size: 1.9rem !important;width: 96%;margin:2% auto 0;overflow: hidden;margin-bottom: -2rem;}
+.nav_h1 p{float: left;margin-right: 2%;font-size: 1.3rem;font-weight: bold;}
+.nav_in{width: 8% !important;}
+
+
+/*银行卡添加*/
+.add{width: 50%;position: relative;}
+
+/*二维码上传*/
+.after{position: absolute;font-size: .8rem;font-weight: bold;margin-top: 1%;}
+
+/*订单列表*/
+.form_Total{width: 96%;margin: 0 auto;background: #fff;border-top:3px solid silver;margin-top:2% ;overflow: hidden;padding-bottom: 1%;}
+.form_ul{width:96%;overflow: hidden;margin: 2% auto 0;}
+.form_ul li{float: left;border: 1px solid #F0F0F0;text-align: center;padding: 1% 0;}
+.form_ul li:nth-child(1){width: 30%;}
+.form_ul li:nth-child(2){width: 10%;}
+.form_ul li:nth-child(3){width: 10%;}
+.form_ul li:nth-child(4){width: 10%;}
+.form_ul li:nth-child(5){width: 20%;}
+.form_ul li:nth-child(6){width: 20%;}
+
+.col-ul{width:96%;overflow: hidden;margin: 0 auto;}
+.col-ul li{float: left;border: 1px solid #F0F0F0;text-align: center;padding: 1% 0;}
+.col-ul li:nth-child(1){width: 30%;}
+.col-ul li:nth-child(2){width: 10%;}
+.col-ul li:nth-child(3){width: 10%;}
+.col-ul li:nth-child(4){width: 10%;}
+.col-ul li:nth-child(5){width: 20%;}
+.col-ul li:nth-child(6){width: 20%;}
+
+
+
+.col_li{width: 22% !important;}
+.col_li1{width: 15% !important;}
+.col_li2{width: 15% !important;}
+.col_li3{width: 14% !important;}
+.col_li4{width: 20% !important;}
+.col_li5{width: 14% !important;}

@@ -122,16 +122,17 @@ public class QRChannelService extends CrudService<QRChannelDao, QRChannel> {
      * 根据状态查找商城集合
      * @return
      */
-    public List<MallAddress> findByStatus(int status) {
+    public List<QRChannel> findByStatus(int status) {
         return dao.findByStatus(status);
     }
 
 
     /**
-     * 根据商户id查找商城集合
+     * 根据商户id查找
      * @return
      */
     public QRChannel findByMerchantId(String merchantId) {
         return dao.findByMerchantId(merchantId);
     }
+
 }

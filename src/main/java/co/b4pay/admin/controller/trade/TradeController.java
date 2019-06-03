@@ -4,19 +4,19 @@ import co.b4pay.admin.common.core.security.HttpsUtils;
 import co.b4pay.admin.common.helper.LoginHelper;
 import co.b4pay.admin.common.util.DateUtil;
 import co.b4pay.admin.common.util.StringUtil;
+import co.b4pay.admin.common.util.TradeIdUtlis;
 import co.b4pay.admin.common.web.BaseController;
 import co.b4pay.admin.common.web.PageAttribute;
 import co.b4pay.admin.controller.Utils.Constants;
 import co.b4pay.admin.controller.Utils.HmacSHA1Signature;
 import co.b4pay.admin.controller.Utils.SignatureUtil;
+import co.b4pay.admin.controller.Utils.Utils;
 import co.b4pay.admin.entity.*;
 import co.b4pay.admin.entity.base.Page;
 import co.b4pay.admin.entity.base.Params;
-import co.b4pay.admin.service.ConsumeService;
-import co.b4pay.admin.service.MallAddressService;
-import co.b4pay.admin.service.MerchantService;
-import co.b4pay.admin.service.QRChannelService;
+import co.b4pay.admin.service.*;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +31,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.security.SignatureException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * 订单 Controller
@@ -47,6 +46,8 @@ public class TradeController extends BaseController {
      */
     private static final Logger logger = LoggerFactory.getLogger(TradeController.class);
 
+    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Autowired
     private ConsumeService consumeService;
 
@@ -57,28 +58,21 @@ public class TradeController extends BaseController {
     private MerchantService merchantService;
 
 
+
     private HmacSHA1Signature signature = new HmacSHA1Signature();
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
     @RequiresPermissions("trade:list")
     public String list(Model model, @PageAttribute Page<Consume> page) {
-        String merchantIds = LoginHelper.getMerchantIds();
+        String agencyId = LoginHelper.getLoginAgencyId();
         String roleIds = LoginHelper.getRoleIds();
-
-        String merid = LoginHelper.getMerchantIds();
-        //System.out.println("merid是："+merid);
-        QRChannel qrChannel1= qrChannelService.findByMerchantId(merid);
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getRechargeAmount());
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel1.getFrozenCapitalPool());
-//        model.addAttribute("amount",qrChannel1.getRechargeAmount());
-//        model.addAttribute("pool",qrChannel1.getFrozenCapitalPool());
-
-
-
         if (roleIds.contains("1")) {   //如果拥有超级管理员权限
             model.addAttribute("page", consumeService.findPage(page));
-        } else if (StringUtil.isNoneBlank(merchantIds)) {//如果不是超级管理员则只查询个人交易记录信息
-             QRChannel qrChannel= qrChannelService.findByMerchantId(merchantIds.substring(0, merchantIds.length() - 1));
+        } else if (StringUtil.isNoneBlank(agencyId)) {//如果不是超级管理员则只查询个人交易记录信息
+             QRChannel qrChannel= qrChannelService.findByMerchantId(agencyId);
+             if (qrChannel == null){
+                 return "new/Null";
+             }
             Params params = page.getParams();
             if (null == params) {
                 params = Params.create("qrChannelId", qrChannel.getId());
@@ -86,7 +80,48 @@ public class TradeController extends BaseController {
                 params.put("qrChannelId", qrChannel.getId());
             }
             page.setParams(params);
-            model.addAttribute("page", consumeService.findPage(page));
+            Page<Consume> pageList = consumeService.findPage(page);
+            if (pageList.getList().size()==0){
+                return "new/Null";
+            }
+            model.addAttribute("page",pageList);
+            model.addAttribute("qrChannel", qrChannel);
+        }
+        Double aDouble = consumeService.sumMoney(page);
+        Double accountMoney = consumeService.sumAccountMoney(page) == null ? 0D :
+                consumeService.sumAccountMoney(page);
+        Double requestMoney = consumeService.sumRequestMoney(page) == null ? 0D :
+                consumeService.sumRequestMoney(page);
+        Integer accountCount = consumeService.accountCount(page) == null ? 0 :
+                consumeService.accountCount(page);
+        String accountMoneyResult = "";
+        if (aDouble != null) {
+            String str = new DecimalFormat("0.00").format(aDouble);
+            String accountMoneyStr = new DecimalFormat("0.00").format(accountMoney);
+            String requestMoneyStr = new DecimalFormat("0.00").format(requestMoney);
+            model.addAttribute("sumMoney", str);
+            model.addAttribute("sumAccountMoney", accountMoneyStr);
+            model.addAttribute("sumRequestMoney", requestMoneyStr);
+            accountMoneyResult = accountMoneyStr;
+            model.addAttribute("accountCount", accountCount);
+        } else {
+            Double d = consumeService.sumMoney(page);
+            if (d == null) {
+                d = 0D;
+            }
+            Double dd = consumeService.sumAccountMoney(page);
+            if (dd == null) {
+                dd = 0D;
+            }
+            Double ddd = consumeService.sumRequestMoney(page);
+            if (ddd == null) {
+                ddd = 0D;
+            }
+            model.addAttribute("sumMoney", Utils.getBigDecimal(d));
+            model.addAttribute("sumAccountMoney", Utils.getBigDecimal(dd));
+            model.addAttribute("sumRequestMoney", Utils.getBigDecimal(ddd));
+            accountMoneyResult = Utils.getBigDecimal(dd).toPlainString();
+            model.addAttribute("accountCount", accountCount);
         }
         return "new/TradeList";
     }
@@ -104,21 +139,26 @@ public class TradeController extends BaseController {
     public String updateStatus(RedirectAttributes redirectAttributes, String id, int status) {
 
         try {
+            //获取订单信息
             Consume trade = consumeService.get(id);
-
+            //组装返回数据
             JSONObject returnData = new JSONObject();
+            //获取商户请求的订单号
             String merchantOrderNo = trade.getMerchantOrderNo();
+            //获取请求金额
             String amount = trade.getTotalAmount().toPlainString();
+            //开始组装
             returnData.put("tradeNo", merchantOrderNo);
             returnData.put("amount", amount );
             returnData.put("tradeState", String.valueOf(trade.getTradeState()));
             returnData.put("merchantId", trade.getMerchant().getId());
             returnData.put("payTime", String.valueOf(trade.getUpdateTime().getTime()));
-            //获取用户到账金额
+            //获取商户到账金额
             BigDecimal accountAmount = trade.getAccountAmount();
-            BigDecimal totalAmount = trade.getTotalAmount();
-            consumeService.updateStatus(id, status,new BigDecimal(amount),accountAmount);
-            Merchant m = merchantService.get(trade.getMerchant().getId());
+            //获取订单商户的id
+            String merchantId = trade.getMerchant().getId();
+            //查询订单所属的商户
+            Merchant m = merchantService.get(merchantId);
             //获取商户总余额
             BigDecimal balance = m.getBalance();
             //获取商户可提现余额
@@ -134,31 +174,43 @@ public class TradeController extends BaseController {
             String content = SignatureUtil.getSignatureContent(returnData, true);
             String sign = signature.sign(content, m.getSecretKey(), "UTF-8");
             returnData.put("signature", sign);
+            //更新订单的状态
             consumeService.updateTrade(id, returnData.toString(), 0);
             //把手动确认回调的金额从冻结资金池中减去
             //判断通道是否为个码充值
             Channel channel = trade.getChannel();
             String channelId = channel.getId();
+
             if ("356".equals(channelId)|| "357".equals(channelId)){
-                //获取订单所属二维码通道
-                QRChannel qrChannel = trade.getQrChannel();
-                //因为在订单的二维码通道里面只包着二维码通道的id和名称,所以需要通过二维码的id去查询所属二维码的
-                String qrChannelId = qrChannel.getId();
-                QRChannel qrChannel2 = qrChannelService.get(qrChannelId);
-                //冻结资金池
-                BigDecimal frozenCapitalPool = qrChannel2.getFrozenCapitalPool();
-                BigDecimal subtract = frozenCapitalPool.subtract(totalAmount);
-                //通道收益
-                BigDecimal turnover = qrChannel2.getTurnover();
-                BigDecimal add = turnover.add(new BigDecimal(amount));
-                qrChannel2.setTurnover(add);
-                qrChannel2.setFrozenCapitalPool(subtract);
-                qrChannelService.update(qrChannel2);
+                if (DateUtil.now().before(DateUtils.addMinutes(trade.getCreateTime(),10))){
+                    //获取订单所属二维码通道
+                    QRChannel qrChannel = trade.getQrChannel();
+                    //因为在订单的二维码通道里面只包着二维码通道的id和名称,所以需要通过二维码的id去查询所属二维码的
+                    String qrChannelId = qrChannel.getId();
+                    QRChannel qrChannel2 = qrChannelService.get(qrChannelId);
+                    //冻结资金池
+                    BigDecimal frozenCapitalPool = qrChannel2.getFrozenCapitalPool();
+                    BigDecimal subtract = frozenCapitalPool.subtract(new BigDecimal(amount));
+                    //通道收益
+                    BigDecimal turnover = qrChannel2.getTurnover();
+                    BigDecimal add = turnover.add(new BigDecimal(amount));
+                    qrChannel2.setTurnover(add);
+                    qrChannel2.setFrozenCapitalPool(subtract);
+                    qrChannelService.update(qrChannel2);
+                    consumeService.updateStatus(id, status,new BigDecimal(amount),accountAmount);
+                    JobTrade jobTrade = consumeService.findJobTradeById(trade.getId());
+                    //发起给客户回调任务
+                    new Thread(new NotitfTask(jobTrade, trade)).start();
+                } else {
+                  throw new Exception("你的订单已超过确认付款时间");
+                }
+            }else {
+                consumeService.updateStatus(id, status,new BigDecimal(amount),accountAmount);
+                JobTrade jobTrade = consumeService.findJobTradeById(trade.getId());
+                //发起给客户回调任务
+                new Thread(new NotitfTask(jobTrade, trade)).start();
+                addMessage(redirectAttributes, "确认收款成功");
             }
-            JobTrade jobTrade = consumeService.findJobTradeById(trade.getId());
-            //发起给客户回调任务
-            new Thread(new NotitfTask(jobTrade, trade)).start();
-            addMessage(redirectAttributes, "确认收款成功");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

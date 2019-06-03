@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/vendor/chosen/css/chosen-bootstrap.css">
 
     <link href="${pageContext.request.contextPath}/assets/css/minimal.css" rel="stylesheet">
-
 </head>
 <body class="bg-1">
 
@@ -38,7 +37,7 @@
 <!--/Preloader -->
 
 <!--/Preloader -->
-<div id="wrap">
+<%--<div id="wrap">
 
     <!-- Make page fluid -->
     <div class="row">
@@ -49,13 +48,6 @@
     <!-- 内容区域 -->
     <div id="content" class="col-md-12">
         <!-- page header -->
-        <div class="pageheader">
-
-
-            <h2><i class="fa fa-tachometer"></i> Dashboard
-                <span>// Place subtitle here...</span></h2>
-
-        </div>
         <!-- /page header -->
 
         <!-- content main container -->
@@ -123,7 +115,72 @@
             </section>
         </div>
     </div>
+</div>--%>
+<%@ include file="../include/head.jsp" %>
+<div class="primary">
+    <h1>个人充值记录</h1>
+    <%--<span class="code">通道</span>
+    <select class="form-control control01 nav_sel">
+        <option value="外贸鞋柜">请选择</option>
+        <option value="高端品质代购">支付成功</option>
+        <option value="高端品质代购">支付超时</option>
+    </select>
+    <!---->
+    <span class="code nav_code">银行卡类型</span>
+    <select class="form-control control01 nav_sel">
+        <option value="外贸鞋柜">请选择</option>
+        <option value="高端品质代购">支付成功</option>
+        <option value="高端品质代购">支付超时</option>
+    </select>
+    <!---->
+    <!---->
+    <button class="btn" >搜索</button>
+    <div class="nav_h1">
+        <p>保证金总额：879.47</p>
+        <p>冻结金额：0.47</p>
+        <p>可用金额：879.47</p>
+    </div>--%>
+    <!---->
+    <div class="Total">
+        <div class="primary_div">
+            <ul class="nav_ul">
+                <li style="width: 6% !important;">序号</li>
+                <li style="width: 16% !important;">充值单号</li>
+                <li style="width: 11%;">通道名称</li>
+                <li style="width: 11%;">银行卡号</li>
+                <li style="width: 11%;">银行名称</li>
+                <li style="width: 11%;">持卡人姓名</li>
+                <li style="width: 11%;">充值金额</li>
+                <li style="width: 11%;">充值时间</li>
+                <li style="width: 11%;">状态</li>
+            </ul>
+            <c:forEach items="${page.list}" var="recharge" varStatus="status">
+                <div class="Total_p p nav_p">
+                    <p style="width: 6%;">${status.index + 1}</p>
+                    <p style="width: 16%;">${recharge.tradeNo}</p>
+                    <p style="width: 11%;">${recharge.merchantCompany}</p>
+                    <p style="width: 11%;">${recharge.cardNo}</p>
+                    <p style="width: 11%;">${recharge.bankName}</p>
+                    <p style="width: 11%;">${recharge.customerName}</p>
+                    <p style="width: 11%;">${recharge.amount}</p>
+                    <p style="width: 11%;"><fmt:formatDate value='${recharge.createTime}' pattern='yyyy-MM-dd HH:mm:ss'/>
+                    </p>
+                    <p style="width: 11%;">
+                        <c:if test="${recharge.status == 0}"><span style="color: #0D47A1">充值中</c:if>
+                        <c:if test="${recharge.status == 1}"><span style="color:red">充值完成</c:if>
+                            <c:if test="${recharge.status == 2}"><span style="color: #4a148c">驳回</c:if>
+                    </p>
+                </div>
+            </c:forEach>
+
+            <%--<b class="nva_b">第 1 页 ( 总共 2 页，12 条记录 )</b>--%>
+        </div>
+    </div>
 </div>
+
+
+
+
 <!-- 内容区域 /-->
 </div>
 

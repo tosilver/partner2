@@ -35,10 +35,8 @@ public class BankCardInformationService extends CrudService<BankCardInformationD
         return dao.findListById(merchantId);
     }
 
-    /**
-     * 根据商户ID查找商城集合
-     */
-//    public BankCardInformation findByMerchantId(String merchantId){
-//        return dao.findByMerchantId(merchantId);
-//    }
+
+    public List<BankCardInformation> findListByIdAndStatus(String merchantId,int status) {
+        return dao.findListByIdAndStatus(merchantId,status);
+    }
 }

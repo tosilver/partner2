@@ -9,6 +9,7 @@ import co.b4pay.admin.entity.BankCardInformation;
 import co.b4pay.admin.entity.base.Page;
 import co.b4pay.admin.entity.Merchant;
 import co.b4pay.admin.entity.base.Params;
+import co.b4pay.admin.service.AgencyService;
 import co.b4pay.admin.service.BankCardInformationService;
 import co.b4pay.admin.service.MerchantService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -40,20 +41,25 @@ public class BankCardInformationController extends BaseController {
     @Autowired
     private MerchantService merchantService;
 
+    @Autowired
+    private AgencyService agencyService;
+
+
+
     @RequestMapping(value = "list", method = RequestMethod.GET)
     @RequiresPermissions(value = "bankCradAdd:list")
     public String list(Model model, @PageAttribute Page<BankCardInformation> page){
-        String merchantIds = LoginHelper.getMerchantIds();
+        String agencyId = LoginHelper.getLoginAgencyId();
         String roleIds = LoginHelper.getRoleIds();
 
         if (roleIds.contains("1")){
             model.addAttribute(bankCardInformationService.findPage(page));
-        } else if (StringUtil.isNotBlank(merchantIds)){
+        } else if (StringUtil.isNotBlank(agencyId)){
             Params params = page.getParams();
             if (params == null){
-                params = Params.create("merchantId", merchantIds.substring(0, merchantIds.length() - 1));
+                params = Params.create("merchantId",agencyId);
             } else {
-                params.put("merchantId", merchantIds.substring(0, merchantIds.length() - 1));
+                params.put("merchantId", agencyId);
             }
             page.setParams(params);
             model.addAttribute(bankCardInformationService.findPage(page));
@@ -66,11 +72,11 @@ public class BankCardInformationController extends BaseController {
     @RequiresPermissions(value = "bankCradAdd:save")
     public String save(RedirectAttributes redirectAttributes, String accountType, String bankName, String cardNo, String bankMark, String customerName, String phoneNum){
 
-        //获取商户ID
-        String merchantIds = LoginHelper.getMerchantIds();
-        String merchantId = merchantIds.substring(0, merchantIds.length() - 1);
+        //获取代理ID
+        String agencyId = LoginHelper.getLoginAgencyId();
+        //String merchantId = merchantIds.substring(0, merchantIds.length() - 1);
         BankCardInformation bankCardInformation = new BankCardInformation();
-        bankCardInformation.setMerchantId(merchantId);
+        bankCardInformation.setMerchantId(agencyId);
         bankCardInformation.setBankName(bankName);
         bankCardInformation.setAccountType(Integer.valueOf(accountType).intValue());
         bankCardInformation.setBankMark(bankMark.trim());
@@ -79,7 +85,7 @@ public class BankCardInformationController extends BaseController {
         bankCardInformation.setPhoneNum(phoneNum.trim());
         bankCardInformation.setStatus(1);
         if (StringUtil.isNoneBlank(bankCardInformation.getBankName())){
-            int count = bankCardInformationService.save(bankCardInformation);
+            bankCardInformationService.save(bankCardInformation);
         } else {
             return "new/bankCradAdd";
         }
@@ -90,11 +96,6 @@ public class BankCardInformationController extends BaseController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     @RequiresPermissions("bankCradAdd:add")
     public String add(Model model){
-        String merchantIds = LoginHelper.getMerchantIds();
-        String merchantId = merchantIds.substring(0, merchantIds.length() - 1);
-        Merchant merchant = merchantService.get(merchantId);
-        model.addAttribute("merchant",merchant);
-
         return "new/bankCradAdd";
     }
 

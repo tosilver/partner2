@@ -22,4 +22,13 @@ public interface MerchantRateDao extends ICrudDao<MerchantRate> {
     int ifExists(Params params);
 
     MerchantRate findByPayCost(@Param("merchantId") String merchantId, @Param("routerId") String routerId);
+
+
+    /**
+     * 根据商户id和路由id查找费率记录
+     * @param merchantId
+     * @param routerId
+     * @return
+     */
+    MerchantRate findByCostRate(@Param("merchantId") String merchantId, @Param("routerId") String routerId);
 }

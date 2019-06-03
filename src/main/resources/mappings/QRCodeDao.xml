@@ -14,7 +14,8 @@
         a.update_time AS "updateTime",
         a.last_request_time AS "lastRequestTime",
         a.turnover,
-        a.rate
+        a.rate,
+        a.no
     </sql>
 
     <sql id="Base_Where_Clause">
@@ -30,6 +31,9 @@
             </choose>
             <if test="merchantId != null and merchantId!=''">
                 AND a.merchant_id = #{merchantId}
+            </if>
+            <if test="codeType != null and codeType!=''">
+                AND a.code_type = #{codeType}
             </if>
             <if test="startDate != null and startDate != ''">
                 AND a.update_time &gt;= #{startDate}
@@ -127,7 +131,7 @@
             select @@IDENTITY as id
         </selectKey>
         insert into dst_qrcode(merchant_id,`name`,money,code_path,code_data,status,code_type,create_time,update_time,last_request_time,turnover,rate)
-        values(#{merchantId}, #{Name},#{money},#{codePath},#{codeData},#{status},#{codeType}, now(), now(),now(),#{turnover},#{rate})
+        values(#{merchantId}, #{name},#{money},#{codePath},#{codeData},#{status},#{codeType}, now(), now(),now(),#{turnover},#{rate})
     </insert>
 
     <update id="update">
@@ -135,23 +139,26 @@
         <if test="merchantId != null">
             merchant_id = #{merchantId},
         </if>
-        <if test="mallName != null">
-            mall_name = #{mallName},
+        <if test="name != null">
+            `name` = #{name},
         </if>
-        <if test="address != null">
-            address = #{address},
+        <if test="money != null">
+            money = #{money},
         </if>
-        <if test="mallAdmin != null">
-            mall_admin = #{mallAdmin},
+        <if test="codePath != null">
+            code_path = #{codePath},
+        </if>
+        <if test="codeData != null">
+            code_data = #{codeData},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        <if test="codeType != null">
+            code_type = #{codeType},
         </if>
         <if test="turnover != null">
             turnover = #{turnover},
-        </if>
-        <if test="rechargeAmount != null">
-            recharge_amount = #{rechargeAmount},
-        </if>
-        <if test="frozenCapitalPool != null">
-            frozen_capital_pool = #{frozenCapitalPool},
         </if>
         <if test="rate != null">
             rate = #{rate},

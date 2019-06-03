@@ -1,13 +1,17 @@
 package co.b4pay.admin.controller.partner;
 
 import co.b4pay.admin.common.helper.LoginHelper;
+import co.b4pay.admin.common.system.entity.Admin;
+import co.b4pay.admin.common.system.service.AdminService;
 import co.b4pay.admin.common.util.StringUtil;
 import co.b4pay.admin.common.web.BaseController;
 import co.b4pay.admin.common.web.PageAttribute;
+import co.b4pay.admin.entity.Agency;
 import co.b4pay.admin.entity.MallAddress;
 import co.b4pay.admin.entity.QRChannel;
 import co.b4pay.admin.entity.base.Page;
 import co.b4pay.admin.entity.base.Params;
+import co.b4pay.admin.service.AgencyService;
 import co.b4pay.admin.service.MallAddressService;
 import co.b4pay.admin.service.QRChannelService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 渠道 Controller
@@ -37,33 +42,31 @@ public class QRChannelController extends BaseController {
     @Autowired
     private QRChannelService qrChannelService;
 
+    @Autowired
+    private AgencyService agencyService;
+
+    @Autowired
+    private AdminService adminService;
+
     @RequestMapping(value = "list", method = RequestMethod.GET)
     @RequiresPermissions("QRChannel:list")
     public String list(Model model, @PageAttribute Page<QRChannel> page) {
-        String merchantIds = LoginHelper.getMerchantIds();
+        String agencyId = LoginHelper.getLoginAgencyId();
         String roleIds = LoginHelper.getRoleIds();
-
-        String merid = LoginHelper.getMerchantIds();
-        //System.out.println("merid是："+merid);
-        QRChannel qrChannel= qrChannelService.findByMerchantId(merid);
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel.getRechargeAmount());
-//        System.out.println("qrChannel获取表pool的信息："+qrChannel.getFrozenCapitalPool());
-//        model.addAttribute("amount",qrChannel.getRechargeAmount());
-//        model.addAttribute("pool",qrChannel.getFrozenCapitalPool());
-
-
-
-        if (roleIds.contains("1")) {   //如果拥有超级管理员权限
-            model.addAttribute("page", qrChannelService.findPage(page));
-        } else if (StringUtil.isNoneBlank(merchantIds)) {    //如果不是超级管理员则只查询个人交易记录信息
-            Params params = page.getParams();
-            if (null == params) {
-                params = Params.create("merchantId", merchantIds.substring(0, merchantIds.length() - 1));
-            } else {
-                params.put("merchantId", merchantIds.substring(0, merchantIds.length() - 1));
-            }
-            page.setParams(params);
-            model.addAttribute("page", qrChannelService.findPage(page));
+        if (roleIds.contains("6")) {
+         if (StringUtil.isNoneBlank(agencyId)) {
+             Params params = page.getParams();
+             if (null == params) {
+                 params = Params.create("merchantId", agencyId);
+             } else {
+                 params.put("merchantId",agencyId);
+             }
+             page.setParams(params);
+             //查询旗下是否有代理,有代理才显示新增通道
+             int num = agencyService.findBySuperiorIdToNum(Long.parseLong(agencyId));
+             model.addAttribute("page", qrChannelService.findPage(page));
+             model.addAttribute("num", num);
+         }
         }
         return "new/balance";
     }
@@ -77,28 +80,45 @@ public class QRChannelController extends BaseController {
         return "channel/malladdressForm";
     }
 
-    @RequestMapping(value = "save", method = RequestMethod.POST)
-    @RequiresPermissions(value = "QRChannel:save")
-    public String save(RedirectAttributes redirectAttributes, QRChannel qrChannel) {
-        if (StringUtil.isBlank(qrChannel.getId())) {
-            int isExists = qrChannelService.findByMallName(qrChannel.getName());
-            if (isExists > 0) {
-                addErrorMessage(redirectAttributes, "商城地址已经存在，请勿重复添加");
-                return "redirect:/malladdress/list";
-            }else {
-
-                //由于只读属性,金额为0.0需转换如下字段才能保存成功
-                qrChannel.setRechargeAmount(new BigDecimal(0.00));
-                qrChannel.setFrozenCapitalPool(new BigDecimal(0.00));
-                qrChannel.setRate(new BigDecimal(0.00));
-                //设置状态为停用
-                qrChannel.setStatus(0);
-                qrChannelService.save(qrChannel);
-            }
-        } else {
-            qrChannelService.update(qrChannel);
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    @RequiresPermissions("QRChannel:add")
+    public String add(Model model) {
+        String agencyId = LoginHelper.getLoginAgencyId();
+        String roleIds = LoginHelper.getRoleIds();
+        if (roleIds.contains("6")) {
+            List<Agency> agencyList = agencyService.findBySuperiorId(Long.parseLong(agencyId));
+            model.addAttribute("agencyList",agencyList);
+            return "new/QRChannelAdd";
+        }else {
+            return "redirect:/QRChannel/list";
         }
-        return "redirect:/QRChannel/list";
+    }
+
+
+    @RequestMapping(value = "save", method = RequestMethod.GET)
+    @RequiresPermissions(value = "QRChannel:save")
+    public String save(RedirectAttributes redirectAttributes,String name,String merchantId,String rate ) {
+        QRChannel qrChannel = qrChannelService.findByMerchantId(merchantId);
+        if (qrChannel != null){
+            addErrorMessage(redirectAttributes, "代理通道已经存在，请勿重复添加");
+            return "redirect:/QRChannel/list";
+        }else {
+            QRChannel qrChannel1 = new QRChannel();
+            qrChannel1.setName(name);
+            qrChannel1.setMerchantId(merchantId);
+            qrChannel1.setRate(new BigDecimal(rate));
+            qrChannel1.setTurnover(new BigDecimal(0.00));
+            //由于只读属性,金额为0.0需转换如下字段才能保存成功
+            qrChannel1.setRechargeAmount(new BigDecimal(0.00));
+            qrChannel1.setFrozenCapitalPool(new BigDecimal(0.00));
+            //设置状态为停用
+            qrChannel1.setStatus(0);
+            qrChannelService.save(qrChannel1);
+            Admin admin = adminService.findByAgencyId(merchantId);
+            admin.setStatus(1);
+            adminService.update(admin);
+            return "redirect:/QRChannel/list";
+        }
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
@@ -118,7 +138,7 @@ public class QRChannelController extends BaseController {
         } else {
             addMessage(redirectAttributes, "状态更改失败");
         }
-        return "redirect:/QRChannel/list";
+        return "redirect:/trade/list";
     }
 
     /**

@@ -4,6 +4,7 @@
     <sql id="Base_Column_List">
         a.id,
         a.merchant_id AS "merchantId",
+        a.approve_id AS "approveId",
         a.trade_no AS "tradeNo",
         a.merchant_company AS "merchantCompany",
         a.mall_name AS "mallName",
@@ -11,6 +12,9 @@
         a.bank_name AS "bankName",
         a.customer_name AS "customerName",
         a.amount,
+        a.greatGrandfather_amount AS "greatGrandfatherAmount",
+        a.grandfather_amount AS "grandfatherAmount",
+        a.superior_amount AS "superiorAmount",
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
         a.status,
@@ -36,6 +40,9 @@
             </if>
             <if test="merchantId != null and merchantId!=''">
                 AND a.merchant_id = #{merchantId}
+            </if>
+            <if test="approveId != null and approveId!=''">
+                AND a.approve_id = #{approveId}
             </if>
             <if test="routerId != null and routerId !=''">
                 AND a.channel_id IN (SELECT r.id FROM dst_channel r WHERE r.router_id = #{routerId})
@@ -145,8 +152,8 @@
         <selectKey resultType="string" keyProperty="id" order="AFTER">
             select @@IDENTITY as id
         </selectKey>
-        insert into dst_recharge(trade_no,merchant_company,merchant_id,mall_name,card_no,bank_name,customer_name,amount,status,create_time,update_time,appTime)
-        values(#{tradeNo},#{merchantCompany},#{merchantId},#{mallName},#{cardNo}, #{bankName}, #{customerName}, #{amount},#{status}, now(), now(), #{appTime})
+        insert into dst_recharge(trade_no,merchant_company,merchant_id,approve_id,mall_name,card_no,bank_name,customer_name,amount,greatGrandfather_amount,grandfather_amount,superior_amount,status,create_time,update_time,appTime)
+        values(#{tradeNo},#{merchantCompany},#{merchantId},#{approveId},#{mallName},#{cardNo}, #{bankName}, #{customerName}, #{amount},#{greatGrandfatherAmount},#{grandfatherAmount},#{superiorAmount},#{status}, now(), now(), #{appTime})
     </insert>
 
     <update id="updateStatus">

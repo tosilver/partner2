@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/vendor/chosen/css/chosen-bootstrap.css">
 
     <link href="${pageContext.request.contextPath}/assets/css/minimal.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/proxy/css/page.css" rel="stylesheet">
 
 </head>
 <body class="bg-1">
@@ -47,13 +48,8 @@
         <!-- 页面头部 /-->
     </div>
     <!-- 内容区域 -->
-    <div id="content" class="col-md-12">
-        <!-- page header -->
-        <div class="pageheader">
 
-            <h2><i class="fa fa-tachometer"></i> Dashboard
-                <span>// Place subtitle here...</span></h2>
-        </div>
+   <%-- <div id="content" class="col-md-12">
         <!-- /page header -->
 
         <!-- content main container -->
@@ -123,7 +119,41 @@
             </section>
             <!-- /tile -->
         </div>
+    </div>--%>
+    <div class="primary">
+        <h1>二维码</strong> ${empty QRCode.id?'上传':'修改'}</h1>
+        <form action="${ctx}/qrcode/save" method="post" class="col_form">
+            <input type="hidden" class="add"  name="id" value="${QRCode.id}"/>
+
+            <div class="form_div">
+                <label>二维码类型</label>
+                <select name="type">
+                    <option value="0" <c:if test="${QRCode.codeType eq 0}">selected</c:if> >支付宝</option>
+                    <option value="1" <c:if test="${QRCode.codeType eq 1}">selected</c:if>>微信</option>
+                    <option value="2" <c:if test="${QRCode.codeType eq 2}">selected</c:if>>聚合码</option>
+                </select>
+            </div>
+
+
+            <div class="form_div">
+                <label>二维码名称</label>
+                <input type="text" class="add" name="name" value="${QRCode.name}"/><span class="after">命名规则:姓名(类型+金额)<br>示例"张三(支付宝+100)"</span>
+            </div>
+
+            <div class="form_div">
+                <label>二维码收款金额</label>
+                <input type="text" class="add"  name="money" value="${QRCode.money}"/>
+            </div>
+            <div class="form_div">
+                <label>二维码链接</label>
+                <input type="text" class="add" name="qrcodeData" value="${QRCode.codeData}"/>
+            </div>
+            <div class="form_div"><button type="submit">提交</button><Button type="button" id="select" onclick="javascript:history.back(1);" >返回</button></div>
+
+        </form>
     </div>
+</div>
+
 </div>
 
 

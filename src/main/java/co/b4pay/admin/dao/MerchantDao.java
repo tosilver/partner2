@@ -3,7 +3,9 @@ package co.b4pay.admin.dao;
 import co.b4pay.admin.common.biz.dao.ICrudDao;
 import co.b4pay.admin.common.biz.dao.annotation.MyBatisDao;
 import co.b4pay.admin.entity.Merchant;
+import co.b4pay.admin.entity.MerchantRate;
 import co.b4pay.admin.entity.base.Params;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,5 +34,7 @@ public interface MerchantDao extends ICrudDao<Merchant> {
     Merchant findAll(String id);
 
     List<Merchant> findByAdminMerchant(String id);
+
+
 
 }

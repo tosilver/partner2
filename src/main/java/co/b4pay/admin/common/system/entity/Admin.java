@@ -22,13 +22,15 @@ public class Admin extends BaseEntity {
     private String username;                                   // 用户名
     private String password;                                   // 密码
     private String salt;                                       // 加密密码的盐
-    // private String roleIdsStr;
     private Boolean locked = Boolean.FALSE;
     private String name;                                       // 姓名或昵称
     private String email;                                      // 电子邮件
     private String phone;                                      // 电话
     private String mobile;                                     // 手机
     private String photo;                                      // 头像
+    private String invitationCode;                             //邀请码
+    private String agencyId;                                      //代理id
+
 
     private List<String> roleIds = new ArrayList<String>(); // 拥有的角色列表
 
@@ -232,5 +234,22 @@ public class Admin extends BaseEntity {
     @Override
     public String toString() {
         return username;
+    }
+
+
+    public String getInvitationCode() {
+        return invitationCode;
+    }
+
+    public void setInvitationCode(String invitationCode) {
+        this.invitationCode = invitationCode;
+    }
+
+    public String getAgencyId() {
+        return agencyId;
+    }
+
+    public void setAgencyId(String agencyId) {
+        this.agencyId = agencyId;
     }
 }

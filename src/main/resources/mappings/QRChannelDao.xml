@@ -124,7 +124,7 @@
             select @@IDENTITY as id
         </selectKey>
         insert into dst_qr_channel(merchant_id,`name`,status,create_time,update_time,last_request_time,turnover,recharge_amount,frozen_capital_pool,rate)
-        values(#{merchantId}, #{Name},#{status}, now(), now(),now(),#{turnover},#{rechargeAmount},#{frozenCapitalPool},#{rate})
+        values(#{merchantId},#{Name},#{status}, now(), now(),now(),#{turnover},#{rechargeAmount},#{frozenCapitalPool},#{rate})
     </insert>
 
     <update id="update">

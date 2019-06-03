@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/view/include/taglib.jsp" %>
+
 <html>
 <head>
     <title>宝芝琳</title>
@@ -10,7 +11,6 @@
     <link rel="icon" type="image/ico" href="http://tattek.com/minimal/assets/images/favicon.ico"/>
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
-
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/vendor/animate/animate.min.css">
 
@@ -54,82 +54,109 @@
         <div class="main">
             <!-- tile -->
             <section class="tile color transparent-white">
-                <form id="searchForm" class="form-horizontal" role="form" action="${ctx}/qrcode/list" method="get">
+                <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
+                <input type="hidden" name="pageSize" value="${page.pageSize}"/>
 
-                    <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
-                    <input type="hidden" name="pageSize" value="${page.pageSize}"/>
-
-                    <!-- tile header -->
-                    <div class="tile-header">
-                        <h1><strong>二维码</strong>管理</h1>
-                        <div class="controls">
-                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                        </div>
+                <!-- tile header -->
+                <!-- /tile header -->
+                <!-- tile body -->
+                <div class="tile-body no-vpadding">
+                    <h2>二维码管理</h2>
+                    <div class="account">
+                        <p class="account_p">选择收款账号</p>
+                        <a><i></i></a>
+                        <span class="account_span"><shiro:principal/></span>
+                        <span class="account_span01">(共:${page.totalCount}个二维码)</span>
                     </div>
-                    <!-- /tile header -->
-                    <!-- tile body -->
-                    <div class="tile-body no-vpadding">
+                    <div>
 
-                        <button type="button" class="btn btn-primary btn-lg margin-bottom-20"
-                                onclick="window.location='${ctx}/qrcode/add' ">新增
+                    </div>
+
+
+                    <button type="button" class="btn btn-primary btn-lg margin-bottom-20"
+                            onclick="window.location='${ctx}/qrcode/add' "style="width: 195px;background-color: #0f9d58">新增二维码
+                    </button>
+
+
+                    <form id="searchForm" action="${ctx}/qrcode/list" method="get">
+
+                        <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
+                        <input type="hidden" name="pageSize" value="${page.pageSize}"/>
+
+                        <span class="code">二维码类型：</span>
+                        <select class="form-control" name="codeType">
+                            <option value="">请选择类型</option>
+                            <option value="0" <c:if test="${0 eq page.params.codeType}">selected</c:if>>支付宝</option>
+                            <option value="1" <c:if test="${1 eq page.params.codeType}">selected</c:if>>微信</option>
+                            <option value="2" <c:if test="${2 eq page.params.codeType}">selected</c:if>>聚合码</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-lg margin-bottom-10" style="width: 65px">
+                            <font color="#f0f8ff">搜索</font>
                         </button>
+                    </form>
 
 
-                        <form id="Form" class="form-horizontal" role="form" action="${ctx}/qrcode/list" method="get">
 
-                            <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
-                            <input type="hidden" name="pageSize" value="${page.pageSize}"/>
+                    <form class="form-horizontal">
 
-                            <table class="table table-custom table-sortable">
-                                <thead>
+                        <%--<input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
+                        <input type="hidden" name="pageSize" value="${page.pageSize}"/>--%>
+
+                        <table class="table <%--table-custom table-sortable--%>" style="width: 96%;margin: 0 auto;border: 1px solid silver;">
+                            <thead>
+                            <tr>
+                                <th class="th th01">序号</th>
+                                <th class="th th01">名称</th>
+                                <th class="th th01">二维码类型</th>
+                                <th class="th th01">状态</th>
+                                <th class="th th01">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${page.list}" var="qrcode" varStatus="status">
                                 <tr>
-                                    <th class="sortable sort-asc">序号</th>
-                                    <th class="sortable sort-numeric">名称</th>
-                                    <th class="sortable sort-amount">二维码类型</th>
-                                    <th class="sortable sort-amount">状态</th>
-                                    <th style="width: 50px;">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${page.list}" var="qrcode" varStatus="status">
-                                    <tr>
-                                        <td>${status.index + 1}</td>
-                                        <td>${qrcode.name}</td>
-                                        <td>
-                                            <c:if test="${qrcode.codeType == 0}">支付宝</c:if>
-                                            <c:if test="${qrcode.codeType == 1}">微信</c:if>
-                                            <c:if test="${qrcode.codeType == 2}"><span style="color:red">聚合码</span></c:if>
-                                        </td>
-                                        <td>${qrcode.status== 0 ? "<font color='#FF0000'>停用</font>":"可用" }</td>
-                                        <td>
-                                            <c:if test="${qrcode.status==1}">
+                                    <td class="th" style="vertical-align: inherit;">${status.index + 1}</td>
+                                    <td class="th" style="vertical-align: inherit;">${qrcode.name}</td>
+                                    <td class="th" style="vertical-align: inherit;">
+                                        <c:if test="${qrcode.codeType == 0}">支付宝</c:if>
+                                        <c:if test="${qrcode.codeType == 1}">微信</c:if>
+                                        <c:if test="${qrcode.codeType == 2}"><span style="color:red">聚合码</span></c:if>
+                                    </td>
+                                    <td class="th" style="vertical-align: inherit;">${qrcode.status== 0 ? "<font color='#FF0000'>停用</font>":"可用" }</td>
+                                    <td class="th" style="vertical-align: inherit;">
+                                        <c:if test="${qrcode.status==1}">
+                                            <button>
                                                 <a href="${ctx}/qrcode/updateStatus?id=${qrcode.id}&status=0"
-                                                   onclick="return confirm('确认要停用该收款码吗？', this.href)">停用</a>
-                                            </c:if>
-                                            <c:if test="${qrcode.status==0}">
+                                                   onclick="return confirm('确认要停用该收款码吗？', this.href)">
+                                                    停用
+                                                </a>
+                                            </button>
+
+                                        </c:if>
+
+                                        <c:if test="${qrcode.status==0}">
+                                            <button>
                                                 <a href="${ctx}/qrcode/updateStatus?id=${qrcode.id}&status=1"
                                                    onclick="return confirm('确认要启用该收款码吗？', this.href)">启用</a>
-                                            </c:if>
-                                            <c:if test="${qrcode.status==0}">
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${qrcode.status==0}">
+                                            <button>
                                                 <a href="${ctx}/qrcode/form?id=${qrcode.id}">修改</a>
-                                            </c:if>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
+                                            </button>
+                                        </c:if>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
 
-                        </form>
-
-                    </div>
-                    <!-- /tile body -->
-
-
-                    <!-- tile footer -->
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <%@ include file="../include/pagination.jsp" %>
-                    <!-- /tile footer -->
-                </form>
+                </div>
+                <!-- /tile body -->
             </section>
         </div>
     </div>
@@ -168,6 +195,41 @@
 <script src="${pageContext.request.contextPath}/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/assets/js/minimal.min.js"></script>
+
+
+<script>
+    function aaa() {
+        var codeType = document.getElementsByName("codeType")[0];
+        console.log(codeType,codeType.value)
+
+    }
+</script>
+<script>
+    $(function () {
+        $('#queding').click(function () {
+            // console.log(document.getElementById("consumeId").value)
+            // console.log(document.getElementById("moneys").value)
+            $.ajax({
+                type: "get",
+                url: "${ctx}/consume/updateStatus",
+                data: {
+                    id: document.getElementById("consumeId").value,
+                    status: 2,
+                    amount: document.getElementById("moneys").value
+                },
+                // dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    window.location.reload();
+                    // location.reload([bForceGet])
+                }
+            });
+        });
+
+
+
+    });
+</script>
 
 </body>
 </html>

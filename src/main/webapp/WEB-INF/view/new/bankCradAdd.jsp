@@ -47,7 +47,7 @@
         <!-- 页面头部 /-->
     </div>
     <!-- 内容区域 -->
-    <div id="content" class="col-md-12">
+<%--    <div id="content" class="col-md-12">
         <!-- page header -->
         <div class="pageheader">
 
@@ -146,7 +146,46 @@
             </section>
         <!-- /tile -->
         </div>
+    </div>--%>
+    <!--新增银行卡-->
+    <div class="primary">
+            <h1>新增银行卡</h1>
+                  <form action="${ctx}/bankCradAdd/save" method="post" class="col_form">
+                      <div class="form_div">
+                          <label>账户类型</label>
+                          <select name="accountType">
+                              <option value="0">银行卡</option>
+                              <option value="1">支付宝</option>
+                              <option value="2">微信</option>
+                          </select>
+                      </div>
+                      <div class="form_div">
+                          <label>银行卡名称</label>
+                          <input type="text" class="add" name="bankName"/>
+                      </div>
+                      <div class="form_div">
+                          <label>银行卡号</label>
+                          <input type="text" name="cardNo" class="add"/>
+                      </div>
+                      <div class="form_div">
+                          <label>银行卡编号</label>
+                          <input type="text"  name="bankMark" class="add"/>
+                      </div>
+                      <div class="form_div">
+                          <label>真实姓名</label>
+                          <input type="text" name="customerName"  class="add"/>
+                      </div>
+                      <div class="form_div">
+                          <label>联系电话</label>
+                          <input type="text" name="phoneNum" class="add"/>
+                      </div>
+                      <div class="form_div"><button type="submit">提交</button><button type="button" id="select" onclick="javascript:history.back(1);">返回</button></div>
+
+                  </form>
+              </div>
     </div>
+
+
 </div>
 <!-- 内容区域 /-->
 </div>

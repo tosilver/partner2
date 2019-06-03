@@ -7,6 +7,8 @@ import co.b4pay.admin.common.biz.dao.annotation.MyBatisDao;
 
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 用户Dao接口
  *
@@ -32,4 +34,21 @@ public interface AdminDao extends ICrudDao<Admin> {
 
     Admin findByMerchantId(String merchantIds);
 
+    /**
+     * 查找上级id
+     * @param superiorId
+     * @return
+     */
+    List<Admin> findBySuperiorId(Long superiorId);
+
+    List<Admin> findByCreateBy(String createBy);
+
+   Admin findByAgencyId(String agencyId);
+
+    /**
+     * 根据code查找会员信息
+     * @param invitationCode
+     * @return
+     */
+    Admin findByCode(String invitationCode);
 }

@@ -47,4 +47,9 @@ public class MerchantRateService extends CrudService<MerchantRateDao, MerchantRa
         return dao.ifExists(params);
     }
 
+
+    public MerchantRate findByCostRate(String merchantId,String routerId ){
+        return dao.findByCostRate(merchantId,routerId);
+    }
+
 }

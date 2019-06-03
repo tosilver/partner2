@@ -39,7 +39,6 @@
 
 <!--/Preloader -->
 <div id="wrap">
-
     <!-- Make page fluid -->
     <div class="row">
         <!-- 页面头部 -->
@@ -47,64 +46,122 @@
         <!-- 页面头部 /-->
     </div>
     <!-- 内容区域 -->
-    <div id="content" class="col-md-12">
-        <!-- /page header -->
+    <%-- <div id="content" class="col-md-12">
+         <!-- /page header -->
 
-        <!-- content main container -->
-        <div class="main">
-            <!-- tile -->
-            <section class="tile color transparent-white">
-                <form id="searchForm" class="form-horizontal" role="form" action="${ctx}/malladdress/list" method="get">
+         <!-- content main container -->
+         <div class="main">
+             <!-- tile -->
+             <section class="tile color transparent-white">
+                 <form id="searchForm" class="form-horizontal" role="form" action="${ctx}/malladdress/list" method="get">
 
-                    <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
-                    <input type="hidden" name="pageSize" value="${page.pageSize}"/>
+                     <input type="hidden" name="pageIndex" value="${page.pageIndex}"/>
+                     <input type="hidden" name="pageSize" value="${page.pageSize}"/>
 
-                    <!-- tile header -->
-                    <div class="tile-header">
-                        <h1><strong>通道</strong>余额</h1>
-                        <div class="controls">
-                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                        </div>
-                    </div>
-                    <!-- /tile header -->
-                    <!-- tile body -->
-                    <div class="tile-body no-vpadding">
+                     <!-- tile header -->
+                     <div class="tile-header">
+                         <h1><strong>通道</strong>余额</h1>
+                         <div class="controls">
+                             <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                             <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                         </div>
+                     </div>
+                     <!-- /tile header -->
+                     <!-- tile body -->
+                     <div class="tile-body no-vpadding">
 
-                        <table class="table table-custom table-sortable">
-                            <thead>
-                            <tr>
-                                <th class="sortable sort-asc">序号</th>
-                                <th class="sortable sort-numeric">通道名称</th>
-                                <th class="sortable sort-amount">充值资金池</th>
-                                <th class="sortable sort-amount">冻结资金池</th>
-                                <th style="width: 50px;">状态</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${page.list}" var="qrchannel" varStatus="status">
-                                <tr>
-                                    <td>${status.index + 1}</td>
-                                    <td>${qrchannel.name}</td>
-                                    <td>${qrchannel.rechargeAmount}</td>
-                                    <td>${qrchannel.frozenCapitalPool}</td>
-                                    <td>${qrchannel.status== 0 ? "<font color='#FF0000'>停用</font>" : "可用"}</td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                         <table class="table table-custom table-sortable">
+                             <thead>
+                             <tr>
+                                 <th class="sortable sort-asc">序号</th>
+                                 <th class="sortable sort-numeric">通道名称</th>
+                                 <th class="sortable sort-amount">充值资金池</th>
+                                 <th class="sortable sort-amount">冻结资金池</th>
+                                 <th style="width: 50px;">状态</th>
+                             </tr>
+                             </thead>
+                             <tbody>
+                             <c:forEach items="${page.list}" var="qrchannel" varStatus="status">
+                                 <tr>
+                                     <td>${status.index + 1}</td>
+                                     <td>${qrchannel.name}</td>
+                                     <td>${qrchannel.rechargeAmount}</td>
+                                     <td>${qrchannel.frozenCapitalPool}</td>
+                                     <td>${qrchannel.status== 0 ? "<font color='#FF0000'>停用</font>" : "可用"}</td>
+                                 </tr>
+                             </c:forEach>
+                             </tbody>
+                         </table>
 
-                    </div>
-                    <!-- /tile body -->
+                     </div>
+                     <!-- /tile body -->
 
 
-                    <!-- tile footer -->
-                    <%@ include file="../include/pagination.jsp" %>
-                    <!-- /tile footer -->
-                </form>
-            </section>
+                     <!-- tile footer -->
+                     <%@ include file="../include/pagination.jsp" %>
+                     <!-- /tile footer -->
+                 </form>
+             </section>
+         </div>
+     </div>--%>
+
+    <!--保证金转移-->
+    <div class="primary">
+        <h1>通道余额</h1>
+        <%--<span class="code">状态</span>
+        <select class="form-control control">
+            <option value="">请选择</option>
+            <option value="">待审核</option>
+            <option value="高端品质代购">同意</option>
+            <option value="高端品质代购">拒绝</option>
+        </select>
+        <span class="code">金额</span>
+        <input type="text" class="inp"/>
+        <button class="btn" style="vertical-align: inherit;">搜索</button>
+        <button class="btn" style="vertical-align: inherit;background: green;">充值</button>--%>
+        <%--<c:if test="${num > 0}">
+        <button type="button" class="btn btn-primary btn-lg margin-bottom-20"
+                onclick="window.location='${ctx}/QRChannel/add' " style="width: 195px;background-color: #0f9d58">新增通道
+        </button>
+        </c:if>--%>
+        <div class="Total">
+            <div class="primary_div">
+
+                <ul>
+                    <li>序号</li>
+                    <li>通道名称</li>
+                    <li>充值资金池</li>
+                    <li>冻结资金池</li>
+                    <li>状态</li>
+                    <li>操作</li>
+                </ul>
+
+                <c:forEach items="${page.list}" var="qrchannel" varStatus="status">
+                    <ul>
+                        <li>${status.index + 1}</li>
+                        <li>${qrchannel.name}</li>
+                        <li>${qrchannel.rechargeAmount}</li>
+                        <li>
+                                ${qrchannel.frozenCapitalPool}
+                        </li>
+                        <li>${qrchannel.status== 0 ? "<font color='#FF0000'>停用</font>" : "可用"}</li>
+                        <li><%--<c:if test="${qrchannel.status==1}">
+                            <a href="${ctx}/QRChannel/updateStatus?id=${qrchannel.id}&status=0"
+                               onclick="return confirm('确认要停用该通道吗？', this.href)">停用</a>
+                        </c:if>
+                        <c:if test="${qrchannel.status==0}">
+                            <a href="${ctx}/QRChannel/updateStatus?id=${qrchannel.id}&status=1"
+                               onclick="return confirm('确认要启用该通道吗？', this.href)">启用</a>
+                        </c:if>--%>
+                        </li>
+                    </ul>
+                </c:forEach>
+
+            </div>
         </div>
+        <%@ include file="../include/pagination.jsp" %>
     </div>
+
 </div>
 <!-- 内容区域 /-->
 </div>
