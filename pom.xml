@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.2.8.RELEASE</spring.version>
         <aspectjrt.version>1.7.4</aspectjrt.version>
-        <mybatis.version>3.2.8</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <mybatis-spring.version>1.2.3</mybatis-spring.version>
         <druid.version>1.0.26</druid.version>
         <mysql.driver.version>5.1.40</mysql.driver.version>
